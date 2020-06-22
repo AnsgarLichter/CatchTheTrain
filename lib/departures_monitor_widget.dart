@@ -12,9 +12,9 @@ class DeparturesMonitorWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
-                Icons.favorite,
+                Icons.live_tv,
                 size: 160.0,
-                color: Colors.white,
+                color: Theme.of(context).accentColor,
               ),
               Text(
                 "First Tab",

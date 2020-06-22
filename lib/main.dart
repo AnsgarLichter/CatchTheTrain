@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'home_widget.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Catch The Train',
         theme: ThemeData(
-          primaryColor: Colors.blue[150]
+          primaryColor: Colors.blue[150],
+          accentColor: Colors.cyan[50],
         ),
         home: Home()
     );
