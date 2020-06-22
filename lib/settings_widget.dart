@@ -16,8 +16,8 @@ class SettingsWidget extends StatelessWidget {
                 color: Theme.of(context).accentColor,
               ),
               Text(
-                "First Tab",
-                style: TextStyle(color: Colors.white),
+                "Settings",
+                style: TextStyle(color: Theme.of(context).primaryColor),
               )
             ],
           ),

@@ -21,7 +21,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('KVV Live'),
+        title: Text('Catch The Train'),
       ),
       body: _children[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

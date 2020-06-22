@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Catch The Train',
         theme: ThemeData(
           primaryColor: Colors.blue[150],
           accentColor: Colors.cyan[50],
