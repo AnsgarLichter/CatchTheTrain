@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/departures_monitor_widget.dart';
-import 'package:myapp/route_planning_widget.dart';
-import 'package:myapp/settings_widget.dart';
+import 'package:myapp/view_widgets/route_planning/route_planning_widget.dart';
+import 'package:myapp/view_widgets/departure_monitor/departures_monitor_widget.dart';
+import 'package:myapp/view_widgets/settings_widget.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   final List<Widget> _children = [
-    DeparturesMonitorWidget(),
+    DepartuersMonitor(),
     RoutePlanningWidget(),
     SettingsWidget()
   ];
@@ -29,7 +29,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
         currentIndex: _selectedIndex,
         items: [
          new BottomNavigationBarItem(
-           icon: Icon(Icons.live_tv),
+           icon: Icon(Icons.departure_board),
            title: Text('Departure Monitor'),
          ),
          new BottomNavigationBarItem(
