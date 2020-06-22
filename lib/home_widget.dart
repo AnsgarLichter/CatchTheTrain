@@ -10,19 +10,12 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  TabController tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
-  }
+  int _selectedIndex = 0;
+  final List<Widget> _children = [
+    DeparturesMonitorWidget(),
+    RoutePlanningWidget(),
+    SettingsWidget()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,28 +23,31 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       appBar: AppBar(
         title: Text('KVV Live'),
       ),
-      body: TabBarView(
-        children: <Widget>[
-          DeparturesMonitorWidget(),
-          RoutePlanningWidget(),
-          SettingsWidget()
-        ],
-        controller: tabController,
-      ),
-      bottomNavigationBar: Material(
-        color: Theme.of(context).primaryColor,
-        child: TabBar(
-          tabs: <Tab>[
-            Tab(
-              icon: Icon(Icons.live_tv),
-              text: 'Abfahrtsmonitor',
-            ),
-            Tab(icon: Icon(Icons.train), text: 'Routenplanung'),
-            Tab(icon: Icon(Icons.settings), text: 'Settings'),
-          ],
-          controller: tabController,
-        ),
+      body: _children[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onTabTapped,
+        currentIndex: _selectedIndex,
+        items: [
+         new BottomNavigationBarItem(
+           icon: Icon(Icons.live_tv),
+           title: Text('Departure Monitor'),
+         ),
+         new BottomNavigationBarItem(
+           icon: Icon(Icons.train),
+           title: Text('Route Planning'),
+         ),
+         new BottomNavigationBarItem(
+           icon: Icon(Icons.settings),
+           title: Text('Settings')
+         )
+       ],
       ),
     );
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }
