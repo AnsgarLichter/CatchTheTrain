@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/containers/active_tab.dart';
 import 'package:myapp/containers/tab_selector.dart';
+import 'package:myapp/localization.dart';
 import 'package:myapp/models/app_tab.dart';
-import 'package:myapp/presentation/departure_monitor/departures_monitor_widget.dart';
+import 'package:myapp/presentation/departure_monitor/departure_monitor_screen.dart';
 import 'package:myapp/containers/depature_monitor.dart';
 import 'package:myapp/presentation/route_planning/route_planning_widget.dart';
 import 'package:myapp/presentation/settings_widget.dart';
@@ -29,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> {
     return ActiveTab(builder: (BuildContext context, AppTab activeTab) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Catch The Train'),
+          title: Text(ReduxLocalizations.of(context).appTitle)
         ),
         body: activeTab == AppTab.departureMonitor ? DepartureMonitor() : activeTab == AppTab.routePlanning ? RoutePlanning() : Settings(),
         bottomNavigationBar: TabSelector(),

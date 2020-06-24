@@ -5,6 +5,7 @@ class Stop {
   String name;
   double lat;
   double lon;
+  bool isFavoured = false;
 
   Stop({this.id, this.name, this.lat, this.lon});
 
@@ -22,6 +23,7 @@ class Stop {
     name = map[DatabaseHelper.columnName];
     lat = map[DatabaseHelper.columnLat];
     lon = map[DatabaseHelper.columnLon];
+    isFavoured = true;
   }
 
   Map<String, dynamic> toMap() {

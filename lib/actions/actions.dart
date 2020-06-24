@@ -58,3 +58,27 @@ class UpdateTabAction {
     return 'UpdateTabAction{newTab: $newTab}';
   }
 }
+
+class LoadStopsAction {
+  final String name;
+
+  LoadStopsAction(this.name);
+
+  @override
+  String toString() {
+    return 'LoadStopsAction{name: $name}';
+  }
+}
+
+class StopsLoadedAction {
+  final List<Stop> stops;
+
+  StopsLoadedAction(this.stops);
+
+  @override
+  String toString() {
+    return 'LoadStopsAction{stops: $stops}';
+  }
+}
+
+class StopsNotLoadedAction {}

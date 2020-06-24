@@ -16,7 +16,7 @@ class TabSelector extends StatelessWidget {
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
         return BottomNavigationBar(
-          key: Key('tabs'),
+          key: Key('tabs'), //TODO: create keys enum
           currentIndex: AppTab.values.indexOf(vm.activeTab),
           onTap: vm.onTabSelected,
           items: AppTab.values.map((tab) {
@@ -53,7 +53,7 @@ class _ViewModel {
   }
 
   @override
-  bool operator ==(Object other) =>
+  bool operator == (Object other) =>
       identical(this, other) || other is _ViewModel &&
           runtimeType == other.runtimeType &&
           activeTab == other.activeTab;

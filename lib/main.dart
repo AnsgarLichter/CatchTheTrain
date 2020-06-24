@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:myapp/middleware/store_stops_middleware.dart';
 import 'package:myapp/presentation/HomeScreen.dart';
 import 'package:redux/redux.dart';
 
@@ -14,6 +15,7 @@ Future<void> main() async {
     store: Store<AppState>(
       appReducer,
       initialState: AppState.loading(),
+      middleware: createStoreStopsMiddleware(LiveClient()),
     ),
   ));
 }
