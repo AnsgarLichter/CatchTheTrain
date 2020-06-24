@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/stop.dart';
 import 'package:myapp/services/departure_monitor_service.dart';
-import 'package:myapp/database/database_helper.dart';
+import 'file:///C:/Users/Ansgar/Documents/git/myapp/lib/middleware/database_helper.dart';
 
-class DepartuersMonitor extends StatefulWidget {
+class DeparturesMonitor extends StatefulWidget {
   @override
   DeparturesMonitorState createState() => DeparturesMonitorState();
 }
 
-class DeparturesMonitorState extends State<DepartuersMonitor> {
+class DeparturesMonitorState extends State<DeparturesMonitor> {
   bool showStops = false;
   DatabaseHelper helper = DatabaseHelper.instance;
   Future<List<Stop>> _futureStops;
