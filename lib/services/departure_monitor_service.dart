@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:myapp/database/database_helper.dart';
+import 'package:myapp/models/stop.dart';
 
 Future<List<Stop>> loadStops(String stopName) async {
   String requestUrl =

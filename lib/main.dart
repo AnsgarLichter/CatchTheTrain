@@ -1,21 +1,47 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'home_widget.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:myapp/presentation/HomeScreen.dart';
+import 'package:redux/redux.dart';
 
-void main() => runApp(MyApp());
+import 'package:myapp/localization.dart';
+import 'package:myapp/models/app_state.dart';
+import 'package:myapp/reducers/app_state_reducer.dart';
 
-class MyApp extends StatelessWidget {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(CatchTheTrainApp(
+    store: Store<AppState>(
+      appReducer,
+      initialState: AppState.loading(),
+    ),
+  ));
+}
+
+class CatchTheTrainApp extends StatelessWidget {
+  final Store<AppState> store;
+
+  const CatchTheTrainApp({Key key, this.store}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primaryColor: Colors.blue[150],
-          accentColor: Colors.cyan[50],
-        ),
-        home: Home()
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+          onGenerateTitle: (context) => ReduxLocalizations.of(context).appTitle,
+          theme: ThemeData(
+            primaryColor: Colors.blue[150],
+            accentColor: Colors.cyan[50],
+          ),
+          localizationsDelegates: [ReduxLocalizationsDelegate()],
+          initialRoute: '/home',
+          routes: {
+            '/home': (context) {
+              return HomeScreen(onInit: () {
+                StoreProvider.of<AppState>(context).dispatch('');
+              });
+            },
+          }),
     );
   }
 }

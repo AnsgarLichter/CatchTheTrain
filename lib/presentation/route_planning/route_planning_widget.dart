@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SettingsWidget extends StatelessWidget {
+class RoutePlanning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,12 +11,12 @@ class SettingsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
-                Icons.settings,
+                Icons.train,
                 size: 160.0,
                 color: Theme.of(context).accentColor,
               ),
               Text(
-                "Settings",
+                "Route Planning",
                 style: TextStyle(color: Theme.of(context).primaryColor),
               )
             ],

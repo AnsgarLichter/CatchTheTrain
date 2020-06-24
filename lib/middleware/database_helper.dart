@@ -1,70 +1,20 @@
 import 'dart:io';
+import 'package:myapp/models/stop.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
-final String tableStops = 'stops';
-final String columnId = 'id';
-final String columnName = 'name';
-final String columnLat = 'lat';
-final String columnLon = 'lon';
-
-class Stop {
-  String id;
-  String name;
-  double lat;
-  double lon;
-
-  Stop({this.id, this.name, this.lat, this.lon});
-
-  factory Stop.fromJson(Map<String, dynamic> json) {
-    return Stop(
-      id: json['id'],
-      name: json['name'],
-      lat: json['lat'],
-      lon: json['lon'],
-    );
-  }
-
-  Stop.fromMap(Map<String, dynamic> map) {
-    id = map[columnId];
-    name = map[columnName];
-    lat = map[columnLat];
-    lon = map[columnLon];
-  }
-
-  Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
-      columnName: name,
-      columnLat: lat,
-      columnLon: lon,
-      columnId: id
-    };
-
-    if (id != null) {
-      map[columnId] = id;
-    }
-    return map;
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Stop &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          name == other.name &&
-          lon == other.lon &&
-          lat == other.lat;
-
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ lon.hashCode ^ lat.hashCode;
-}
 
 class DatabaseHelper {
+  final String tableStops = 'stops';
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 1;
+
+  static final String columnId = 'id';
+  static final String columnName = 'name';
+  static final String columnLat = 'lat';
+  static final String columnLon = 'lon';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();

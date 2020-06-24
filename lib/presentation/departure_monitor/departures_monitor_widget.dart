@@ -15,7 +15,8 @@ class DeparturesMonitorState extends State<DepartuersMonitor> {
 
   @override
   void initState() {
-    helper.queryAll().then((value) => value != null ? _savedStops = value : _savedStops = new List<Stop>());
+    helper.queryAll().then((value) =>
+        value != null ? _savedStops = value : _savedStops = new List<Stop>());
     super.initState();
   }
 
