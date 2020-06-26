@@ -60,6 +60,7 @@ class DepartureMonitorScreen extends StatelessWidget {
     );
   }
 
+  //TODO: Extract methods below
   Widget _buildSearchStopScreen() {
     return Center(
       child: Column(
