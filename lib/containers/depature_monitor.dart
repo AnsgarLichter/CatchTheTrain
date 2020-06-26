@@ -22,6 +22,7 @@ class DepartureMonitor extends StatelessWidget {
       builder: (context, vm) {
         return DepartureMonitorScreen(
           stops: vm.stops,
+          favouredStops: vm.favouredStops,
           onSave: vm.onSave,
           onOppose: vm.onOppose,
           onFavour: vm.onFavour,
@@ -33,6 +34,7 @@ class DepartureMonitor extends StatelessWidget {
 
 class _ViewModel {
   final List<Stop> stops;
+  final List<Stop> favouredStops;
   final bool loading;
   final Function(String) onSave;
   final Function(Stop) onOppose;
@@ -40,6 +42,7 @@ class _ViewModel {
 
   _ViewModel({
     @required this.stops,
+    @required this.favouredStops,
     @required this.loading,
     @required this.onSave,
     @required this.onOppose,
@@ -49,6 +52,7 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
       stops: store.state.stops,
+      favouredStops: store.state.favouredStops,
       loading: store.state.isLoading,
       onSave: (name) {
         store.dispatch(LoadStopsAction(name));

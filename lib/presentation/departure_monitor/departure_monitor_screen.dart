@@ -7,6 +7,7 @@ import 'package:myapp/presentation/loading_indicator.dart';
 
 class DepartureMonitorScreen extends StatelessWidget {
   final List<Stop> stops;
+  final List<Stop> favouredStops;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
   final Function(String) onSave;
@@ -14,6 +15,7 @@ class DepartureMonitorScreen extends StatelessWidget {
   DepartureMonitorScreen({
     Key key,
     @required this.stops,
+    @required this.favouredStops,
     @required this.onOppose,
     @required this.onFavour,
     @required this.onSave,
@@ -27,20 +29,58 @@ class DepartureMonitorScreen extends StatelessWidget {
     });
   }
 
-  Material _buildDepartureMonitorScreen() {
-    return Material(
+/*  Material _buildDepartureMonitorScreen() {
+    return Material( //TODO: Insert tabView instead of Material
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SearchStopForm(onSave),
             stops.length > 0 ? StopsList(stops: stops, onOppose: onOppose, onFavour: onFavour) : Container(width: 0, height: 0),
+            //TODO: Create tabs => one tab per saved stop in database
           ],
         ),
       ),
     );
+  }*/
+
+  DefaultTabController _buildDepartureMonitorScreen() {
+    var tabs = <Widget>[];
+    tabs.add(_buildSearchStopScreen());
+    tabs.addAll(_buildLiveDepartureScreen());
+
+
+    return DefaultTabController(
+      length: tabs.length,
+      child: Scaffold(
+          body: TabBarView(
+            children: tabs,
+          )
+      ),
+    );
+  }
+
+  Widget _buildSearchStopScreen() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SearchStopForm(onSave),
+          stops.length > 0 ? StopsList(stops: stops, onOppose: onOppose, onFavour: onFavour) : Container(width: 0, height: 0),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildLiveDepartureScreen() {
+    var tabs = <Widget>[];
+
+    favouredStops.forEach((stop) {
+      tabs.add(Center(
+        child: Text(stop.name)
+      ));
+    });
+
+    return tabs;
   }
 }
-  //TODO: Insert tabView instead of Material
-  //TODO: Create tabs => one tab per saved stop in database
-  //TODO: Implement service for live departues

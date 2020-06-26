@@ -9,6 +9,7 @@ import 'dart:convert';
 //TODO: Extract StopsRepository & LiveClient
 abstract class StopsRepository {
   Future<List<Stop>> loadStops(String name);
+  Future<List<Stop>> loadFavouredStops();
   void delete(Stop stop);
   void insert(Stop stop);
 }
@@ -21,6 +22,11 @@ class StopsClient implements StopsRepository {
     List<Stop> searchedStops = await _loadStopsFromLiveAPI(name);
     List<Stop> favouredStops = await _loadStopsFromDatabase();
     return _mapStopsToOneList(searchedStops, favouredStops);
+  }
+
+  @override
+  Future<List<Stop>> loadFavouredStops() async{
+    return await _loadStopsFromDatabase();
   }
 
   @override
@@ -60,14 +66,19 @@ class StopsClient implements StopsRepository {
   }
 }
 
+
+
+
 List<Middleware<AppState>> createStoreStopsMiddleware(
     StopsRepository stopsRepository) {
   final loadStops = _createLoadStops(stopsRepository);
+  final loadFavouredStops = _createLoadFavouredStops(stopsRepository);
   final deleteStop = _createDeleteStops(stopsRepository);
   final insertStop = _createInsertStops(stopsRepository);
 
   return [
     TypedMiddleware<AppState, LoadStopsAction>(loadStops),
+    TypedMiddleware<AppState, LoadFavouredStopsAction>(loadFavouredStops),
     TypedMiddleware<AppState, OpposeStopAction>(deleteStop),
     TypedMiddleware<AppState, FavourStopAction>(insertStop),
   ];
@@ -81,7 +92,21 @@ Middleware<AppState> _createLoadStops(StopsRepository repository) {
           StopsLoadedAction(stops.toList()),
         );
       },
-    ).catchError((_) => store.dispatch(StopsNotLoadedAction()));
+    ).catchError((error) => store.dispatch(StopsNotLoadedAction(error)));
+
+    next(action);
+  };
+}
+
+Middleware<AppState> _createLoadFavouredStops(StopsRepository repository) {
+  return (Store<AppState> store, action, NextDispatcher next) {
+    repository.loadFavouredStops().then(
+          (stops) {
+        store.dispatch(
+          FavouredStopsLoadedAction(stops.toList()),
+        );
+      },
+    ).catchError((error) => store.dispatch(StopsNotLoadedAction(error)));
 
     next(action);
   };

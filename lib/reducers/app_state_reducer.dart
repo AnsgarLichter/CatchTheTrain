@@ -8,6 +8,7 @@ AppState appReducer(AppState state, action) {
   return AppState(
     isLoading: loadingReducer(state.isLoading, action),
     stops: stopsReducer(state.stops, action),
+    favouredStops: favouredStopsReducer(state.favouredStops, action),
     activeFilter: visibilityReducer(state.activeFilter, action),
     activeTab: tabsReducer(state.activeTab, action),
   );

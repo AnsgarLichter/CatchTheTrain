@@ -85,6 +85,19 @@ class LoadStopsAction {
   }
 }
 
+
+class LoadFavouredStopsAction {}
+class FavouredStopsLoadedAction {
+  final List<Stop> favouredStops;
+
+  FavouredStopsLoadedAction(this.favouredStops);
+
+  @override
+  String toString() {
+    return 'FavouredStopsLoadedAction{stops: $favouredStops}';
+  }
+}
+
 class StopsLoadedAction {
   final List<Stop> stops;
 
@@ -96,4 +109,13 @@ class StopsLoadedAction {
   }
 }
 
-class StopsNotLoadedAction {}
+class StopsNotLoadedAction {
+  final Object error;
+
+  StopsNotLoadedAction(this.error);
+
+  @override
+  String toString() {
+    return 'StopsNotLoadedAction{error: $error}';
+  }
+}
