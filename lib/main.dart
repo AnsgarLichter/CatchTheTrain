@@ -15,7 +15,7 @@ Future<void> main() async {
     store: Store<AppState>(
       appReducer,
       initialState: AppState.loading(),
-      middleware: createStoreStopsMiddleware(LiveClient()),
+      middleware: createStoreStopsMiddleware(StopsClient()),
     ),
   ));
 }

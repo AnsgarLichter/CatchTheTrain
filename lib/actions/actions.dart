@@ -1,18 +1,24 @@
 import 'package:myapp/models/models.dart';
 import 'package:myapp/models/stop.dart';
 
+
+
+// Unused
 class ClearCompletedAction {}
 
+
+
+//Unused
 class ToggleAllAction {}
 
-class LoadTodosAction {}
 
-class TodosNotLoadedAction {}
 
-class TodosLoadedAction {
-
-}
-
+// DatabaseActions
+/*
+* TODO: Create database middleware
+* TODO: Listen to oppoe / favour event
+* TODO: send action to trigger rebuild
+*/
 class OpposeStopAction {
   final Stop stop;
 
@@ -36,6 +42,8 @@ class FavourStopAction {
   }
 }
 
+
+
 //TODO: Remove
 class UpdateFilterAction {
   final VisibilityFilter newFilter;
@@ -48,6 +56,10 @@ class UpdateFilterAction {
   }
 }
 
+
+
+//TabActions
+//TODO: Clear stops switching tabs
 class UpdateTabAction {
   final AppTab newTab;
 
@@ -59,6 +71,9 @@ class UpdateTabAction {
   }
 }
 
+
+
+// Load Stops Actions
 class LoadStopsAction {
   final String name;
 

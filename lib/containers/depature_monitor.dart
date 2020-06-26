@@ -10,7 +10,6 @@ import 'package:myapp/models/stop.dart';
 import 'package:myapp/actions/actions.dart';
 
 import 'package:myapp/presentation/departure_monitor/departure_monitor_screen.dart';
-import 'package:myapp/middleware/store_stops_middleware.dart';
 
 
 class DepartureMonitor extends StatelessWidget {
@@ -38,7 +37,6 @@ class _ViewModel {
   final Function(String) onSave;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
-  final Function(String name) loadStops;
 
   _ViewModel({
     @required this.stops,
@@ -46,7 +44,6 @@ class _ViewModel {
     @required this.onSave,
     @required this.onOppose,
     @required this.onFavour,
-    @required this.loadStops,
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
@@ -62,9 +59,6 @@ class _ViewModel {
       onFavour: (stop) {
         store.dispatch(FavourStopAction(stop));
       },
-      loadStops: (name) {
-        // store.dispatch(LiveClient.getStops(name));
-      }
     );
   }
 }

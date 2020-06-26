@@ -13,13 +13,15 @@ class StopItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        title: Text(stop.name),
-        leading: Icon(Icons.directions_transit),
-        trailing: Icon(
-            stop.isFavoured ? Icons.favorite : Icons.favorite_border,
-            color: stop.isFavoured ? Colors.red : null),
-        onTap: () {
-          stop.isFavoured ? onOppose(stop) : onFavour(stop);
-        });
+      title: Text(stop.name),
+      leading: Icon(Icons.directions_transit),
+      trailing: Icon(stop.isFavoured ? Icons.favorite : Icons.favorite_border,
+          color: stop.isFavoured ? Colors.red : null),
+      onTap: _onStopTapped,
+    );
+  }
+
+  void _onStopTapped() {
+    stop.isFavoured ? onOppose(stop) : onFavour(stop);
   }
 }

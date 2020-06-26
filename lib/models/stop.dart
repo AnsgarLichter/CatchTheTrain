@@ -5,9 +5,9 @@ class Stop {
   String name;
   double lat;
   double lon;
-  bool isFavoured = false;
+  bool isFavoured;
 
-  Stop({this.id, this.name, this.lat, this.lon});
+  Stop({this.id, this.name, this.lat, this.lon, this.isFavoured});
 
   factory Stop.fromJson(Map<String, dynamic> json) {
     return Stop(
@@ -15,6 +15,7 @@ class Stop {
       name: json['name'],
       lat: json['lat'],
       lon: json['lon'],
+      isFavoured: false,
     );
   }
 
