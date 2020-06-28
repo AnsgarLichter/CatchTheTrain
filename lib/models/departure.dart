@@ -2,7 +2,7 @@ class Departure {
   String route;
   String destination;
   String time;
-  int direction;
+  String direction;
   int traction;
   bool lowfloor;
   bool realtime;
@@ -17,8 +17,8 @@ class Departure {
       destination: json['destination'],
       time: json['time'],
       direction: json['direction'],
-      lowfloor: false,
-      realtime: false,
+      lowfloor: json['lowfloor'],
+      realtime: json['realtime'],
     );
   }
 
