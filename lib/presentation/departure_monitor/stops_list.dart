@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/models/stop.dart';
 import 'package:myapp/presentation/departure_monitor/stop_item.dart';
-import 'package:myapp/presentation/loading_indicator.dart';
 
 class StopsList extends StatelessWidget {
   final List<Stop> stops;

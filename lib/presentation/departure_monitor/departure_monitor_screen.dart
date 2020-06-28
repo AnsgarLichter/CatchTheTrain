@@ -3,7 +3,6 @@ import 'package:myapp/containers/app_loading.dart';
 import 'package:myapp/models/stop.dart';
 import 'package:myapp/presentation/departure_monitor/search_stop_form.dart';
 import 'package:myapp/presentation/departure_monitor/stops_list.dart';
-import 'package:myapp/presentation/loading_indicator.dart';
 
 class DepartureMonitorScreen extends StatelessWidget {
   final List<Stop> stops;

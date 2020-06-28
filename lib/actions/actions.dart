@@ -1,3 +1,4 @@
+import 'package:myapp/models/departure.dart';
 import 'package:myapp/models/models.dart';
 import 'package:myapp/models/stop.dart';
 
@@ -85,6 +86,17 @@ class LoadStopsAction {
   }
 }
 
+class StopsLoadedAction {
+  final List<Stop> stops;
+
+  StopsLoadedAction(this.stops);
+
+  @override
+  String toString() {
+    return 'LoadStopsAction{stops: $stops}';
+  }
+}
+
 
 class LoadFavouredStopsAction {}
 class FavouredStopsLoadedAction {
@@ -98,17 +110,6 @@ class FavouredStopsLoadedAction {
   }
 }
 
-class StopsLoadedAction {
-  final List<Stop> stops;
-
-  StopsLoadedAction(this.stops);
-
-  @override
-  String toString() {
-    return 'LoadStopsAction{stops: $stops}';
-  }
-}
-
 class StopsNotLoadedAction {
   final Object error;
 
@@ -117,5 +118,28 @@ class StopsNotLoadedAction {
   @override
   String toString() {
     return 'StopsNotLoadedAction{error: $error}';
+  }
+}
+
+//Load Departures Actions
+class LoadDeparturesAction {
+  final Stop stop;
+
+  LoadDeparturesAction(this.stop);
+
+  @override
+  String toString() {
+    return 'LoadStopsAction{stop: $stop}';
+  }
+}
+
+class DeparturesLoadedAction {
+  final List<Departure> departures;
+
+  DeparturesLoadedAction(this.departures);
+
+  @override
+  String toString() {
+    return 'DeparturesLoadedAction{departures: $departures}';
   }
 }

@@ -3,7 +3,6 @@ import 'package:myapp/containers/active_tab.dart';
 import 'package:myapp/containers/tab_selector.dart';
 import 'package:myapp/localization.dart';
 import 'package:myapp/models/app_tab.dart';
-import 'package:myapp/presentation/departure_monitor/departure_monitor_screen.dart';
 import 'package:myapp/containers/depature_monitor.dart';
 import 'package:myapp/presentation/route_planning/route_planning_widget.dart';
 import 'package:myapp/presentation/settings_widget.dart';
