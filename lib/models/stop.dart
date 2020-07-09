@@ -1,4 +1,4 @@
-import 'file:///C:/Users/Ansgar/Documents/git/myapp/lib/middleware/database/database_helper.dart';
+import 'package:myapp/middleware/database/database_helper.dart';
 
 class Stop {
   String id;

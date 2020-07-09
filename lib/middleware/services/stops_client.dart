@@ -13,7 +13,7 @@ class StopsClient implements StopsRepository {
   Future<List<Stop>> loadStops(String name) async {
     List<Stop> searchedStops = await _loadStopsFromLiveAPI(name);
     List<Stop> favouredStops = await _loadStopsFromDatabase();
-    return _mapStopsToOneList(searchedStops, favouredStops);
+    return _mapStops(searchedStops, favouredStops);
   }
 
   @override
@@ -49,7 +49,9 @@ class StopsClient implements StopsRepository {
     return await helper.queryAll();
   }
 
-  List<Stop> _mapStopsToOneList(List<Stop> searched, List<Stop> favoured) {
+  List<Stop> _mapStops(List<Stop> searched, List<Stop> favoured) {
+    if(favoured == null) return searched;
+
     for (var stop in searched) {
       favoured.contains(stop)
           ? stop.isFavoured = true
