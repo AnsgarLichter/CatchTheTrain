@@ -36,8 +36,9 @@ class CatchTheTrainApp extends StatelessWidget {
           onGenerateTitle: (context) => ReduxLocalizations.of(context).appTitle,
           theme: ThemeData(
             //TODO: extract
-            primaryColor: Colors.blue[150],
-            accentColor: Colors.cyan[50],
+            primaryColor: Colors.blue[500],
+            primaryColorLight: Color.fromRGBO(110, 198, 255, 1),
+            primaryColorDark: Color.fromRGBO(0, 105, 192, 1)
           ),
           localizationsDelegates: [ReduxLocalizationsDelegate()],
           initialRoute: '/home',
