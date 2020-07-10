@@ -9,6 +9,9 @@ final departuresReducer = combineReducers<Map<Stop, List<Departure>>>([
 ]);
 
 Map<Stop, List<Departure>> _setLoadedDepartures(Map<Stop, List<Departure>> departures, DeparturesLoadedAction action) {
-  action.departures.addAll(departures);
-  return action.departures;
+  var updatedDepartures = new Map<Stop, List<Departure>>();
+  updatedDepartures.addAll(departures);
+  updatedDepartures.addAll(action.departures);
+
+  return updatedDepartures;
 }
