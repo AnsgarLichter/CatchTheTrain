@@ -9,7 +9,19 @@ class LoadDeparturesAction {
 
   @override
   String toString() {
-    return 'LoadStopsAction{stop: $stop}';
+    return 'LoadDeparturesAction{stop: $stop}';
+  }
+}
+
+class LoadDeparturesByLineAction {
+  final Stop stop;
+  final String line;
+
+  LoadDeparturesByLineAction(this.stop, this.line);
+
+  @override
+  String toString() {
+    return 'LoadDeparturesByLineAction{stop: $stop}, {line: $line}';
   }
 }
 
@@ -21,5 +33,27 @@ class DeparturesLoadedAction {
   @override
   String toString() {
     return 'DeparturesLoadedAction{departures: $departures}';
+  }
+}
+
+class DeparturesNotLoadedAction {
+  final Object error;
+
+  DeparturesNotLoadedAction(this.error);
+
+  @override
+  String toString() {
+    return 'DeparturesNotLoadedAction{error: $error}';
+  }
+}
+
+class DeparturesByLineNotLoadedAction {
+  final Object error;
+
+  DeparturesByLineNotLoadedAction(this.error);
+
+  @override
+  String toString() {
+    return 'DeparturesByLineNotLoadedAction{error: $error}';
   }
 }

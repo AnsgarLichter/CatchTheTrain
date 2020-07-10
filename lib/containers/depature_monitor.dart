@@ -12,7 +12,6 @@ import 'package:myapp/actions/actions.dart';
 
 import 'package:myapp/presentation/departure_monitor/departure_monitor_screen.dart';
 
-
 class DepartureMonitor extends StatelessWidget {
   DepartureMonitor({Key key}) : super(key: key);
 
@@ -25,6 +24,7 @@ class DepartureMonitor extends StatelessWidget {
           stops: vm.stops,
           favouredStops: vm.favouredStops,
           departures: vm.departures,
+          errorMessage: vm.errorMessage,
           onSave: vm.onSave,
           onOppose: vm.onOppose,
           onFavour: vm.onFavour,
@@ -40,16 +40,18 @@ class _ViewModel {
   final List<Stop> favouredStops;
   final Map<Stop, List<Departure>> departures;
   final bool loading;
+  final String errorMessage;
   final Function(String) onSave;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
-  final Function(Stop) onLoadDepartures;
+  final Function(Stop, String) onLoadDepartures;
 
   _ViewModel({
     @required this.stops,
     @required this.favouredStops,
     @required this.departures,
     @required this.loading,
+    @required this.errorMessage,
     @required this.onSave,
     @required this.onOppose,
     @required this.onFavour,
@@ -62,6 +64,7 @@ class _ViewModel {
       favouredStops: store.state.favouredStops,
       departures: store.state.departures,
       loading: store.state.isLoading,
+      errorMessage: store.state.errorMessage,
       onSave: (name) {
         store.dispatch(LoadStopsAction(name));
       },
@@ -73,8 +76,11 @@ class _ViewModel {
         store.dispatch(FavourStopAction(stop));
         store.dispatch(LoadFavouredStopsAction());
       },
-      onLoadDepartures: (stop) {
-        store.dispatch(LoadDeparturesAction(stop));
+      onLoadDepartures: (stop, line) {
+        if (line.isNotEmpty)
+          store.dispatch(LoadDeparturesByLineAction(stop, line));
+        else
+          store.dispatch(LoadDeparturesAction(stop));
       },
     );
   }

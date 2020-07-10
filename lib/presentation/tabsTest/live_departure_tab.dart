@@ -9,10 +9,14 @@ import 'package:myapp/presentation/tabsTest/departures_list.dart';
 class LiveDepartureTab extends StatefulWidget {
   final Stop stop;
   final Map<Stop, List<Departure>> departures;
-  final Function(Stop) onLoadDepartures;
+  final String errorMessage;
+  final Function(Stop, String) onLoadDepartures;
 
   LiveDepartureTab(
-      {@required this.stop, this.departures, @required this.onLoadDepartures})
+      {@required this.stop,
+      this.departures,
+      @required this.onLoadDepartures,
+      @required this.errorMessage})
       : super(key: Key(stop.id));
 
   @override
@@ -20,9 +24,11 @@ class LiveDepartureTab extends StatefulWidget {
 }
 
 class LiveDepartureTabState extends State<LiveDepartureTab> {
+  String line = '';
+
   @override
   void initState() {
-    widget.onLoadDepartures(widget.stop);
+    widget.onLoadDepartures(widget.stop, line);
     super.initState();
   }
 
@@ -32,9 +38,12 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
         child: Column(
       children: <Widget>[
         _buildStopSign(),
-        widget.departures.length > 0
-            ? DeparturesList(widget.departures[widget.stop])
-            : LoadingIndicator(),
+        _buildFilterLineForm(),
+        widget.errorMessage.isNotEmpty
+            ? Text(widget.errorMessage)
+            : widget.departures.length == 0
+                ? LoadingIndicator()
+                : DeparturesList(widget.departures[widget.stop]),
       ],
     ));
   }
@@ -44,7 +53,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
     return GestureDetector(
         onVerticalDragEnd: _onSwipeUp,
         child: Container(
-            margin: const EdgeInsets.only(top: 30.0, bottom: 45.0),
+            margin: const EdgeInsets.only(top: 30.0, bottom: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -59,7 +68,8 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                                 width: 5.0, color: Colors.green[600])),
                         color: Colors.yellow),
                     child: Container(
-                      margin: const EdgeInsets.only(left: 20.0, right: 15.0, top: 10.0, bottom: 10.0),
+                      margin: const EdgeInsets.only(
+                          left: 20.0, right: 15.0, top: 10.0, bottom: 10.0),
                       child: Text(widget.stop.name, style: textTheme.headline6),
                     )),
                 DecoratedBox(
@@ -81,16 +91,63 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
             )));
   }
 
-  void _onSwipeUp(DragEndDetails details) {
-    widget.onLoadDepartures(widget.stop);
+  Widget _buildFilterLineForm() {
+    return Form(
+        autovalidate: true,
+        onChanged: () {
+          Form.of(primaryFocus.context).save();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                  left: 30.0, right: 15.0, top: 10.0, bottom: 30.0),
+              width: 100,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Filter', //TODO: localization
+                  labelText: 'Linie', //TODO: localization
+                ),
+                maxLength: 3,
+                validator: _onValidateForm,
+                onSaved: _onSaveForm,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 15.0),
+              color: Theme.of(context).primaryColorLight,
+              child: IconButton(
+                icon: Icon(Icons.save),
+                tooltip: 'Speichern des Filters',
+                onPressed: _onSaveButtonPressed,
+              ),
+            )
+          ],
+        ));
+  }
 
-    /*Scaffold.of(context).showSnackBar(SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text(
-          'Aktualisiere ...',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        )));*/
+  String _onValidateForm(String value) {
+    final regExp =
+        new RegExp(r'^[S]?[\d]{1,2}$', caseSensitive: false, multiLine: false);
+    if (!regExp.hasMatch(value))
+      return 'z. B: 1, S1, S32';
+    else
+      return null;
+  }
+
+  void _onSaveForm(String value) {
+    line = value;
+    widget.onLoadDepartures(widget.stop, line);
+  }
+
+  void _onSaveButtonPressed() {
+    return;
+  }
+
+  void _onSwipeUp(DragEndDetails details) {
+    widget.onLoadDepartures(widget.stop, line);
+
     Flushbar(
       title: 'Aktualisieren ...',
       message: 'Die Abfahrten werden geladen ...',
