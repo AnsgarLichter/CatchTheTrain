@@ -59,7 +59,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                                 width: 5.0, color: Colors.green[600])),
                         color: Colors.yellow),
                     child: Container(
-                      margin: const EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.only(left: 20.0, right: 15.0, top: 10.0, bottom: 10.0),
                       child: Text(widget.stop.name, style: textTheme.headline6),
                     )),
                 DecoratedBox(
@@ -74,7 +74,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                         color: Colors.yellow),
                     child: Container(
                       margin: const EdgeInsets.only(
-                          top: 9.5, bottom: 9.5, right: 9.5),
+                          top: 9.5, bottom: 9.5, right: 20.0),
                       child: Icon(Icons.train),
                     )),
               ],
