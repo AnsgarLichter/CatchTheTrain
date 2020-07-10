@@ -14,4 +14,6 @@ abstract class StopsRepository {
 
 abstract class DeparturesRepository {
   Future<List<Departure>> loadDepartures(Stop stop);
+
+  Future<List<Departure>> loadDeparturesByLine(Stop stop, String line);
 }
