@@ -14,7 +14,7 @@ class StopItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(stop.name),
-      leading: Icon(Icons.directions_transit),
+      leading: Icon(Icons.directions_transit, color: Theme.of(context).primaryColor),
       trailing: Icon(stop.isFavoured ? Icons.favorite : Icons.favorite_border,
           color: stop.isFavoured ? Colors.red : null),
       onTap: _onStopTapped,

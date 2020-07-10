@@ -29,7 +29,8 @@ class HomeScreenState extends State<HomeScreen> {
     return ActiveTab(builder: (BuildContext context, AppTab activeTab) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(ReduxLocalizations.of(context).appTitle)
+          title: Text(ReduxLocalizations.of(context).appTitle),
+          backgroundColor: Theme.of(context).primaryColorDark,
         ),
         body: activeTab == AppTab.departureMonitor ? DepartureMonitor() : activeTab == AppTab.routePlanning ? RoutePlanning() : Settings(),
         bottomNavigationBar: TabSelector(),

@@ -16,16 +16,34 @@ class TabSelector extends StatelessWidget {
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
         return BottomNavigationBar(
-          key: Key('tabs'), //TODO: create keys enum
+          key: Key('tabs'),
+          //TODO: create keys enum
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Theme.of(context).primaryColorLight,
+          fixedColor: Theme.of(context).primaryColorDark,
           currentIndex: AppTab.values.indexOf(vm.activeTab),
           onTap: vm.onTabSelected,
           items: AppTab.values.map((tab) {
             return BottomNavigationBarItem(
-            icon: Icon(
-              tab == AppTab.departureMonitor ? Icons.departure_board : tab == AppTab.routePlanning ? Icons.train : Icons.settings,
-              key: Key(tab == AppTab.departureMonitor ? 'departureMonitor' : tab == AppTab.routePlanning ? 'routePlanning' : 'settings',),
-            ),
-            title:Text(tab == AppTab.departureMonitor ? 'Departure Monitor' : tab == AppTab.routePlanning ? 'Route Planning' : 'Settings'),
+              icon: Icon(
+                tab == AppTab.departureMonitor
+                    ? Icons.departure_board
+                    : tab == AppTab.routePlanning
+                        ? Icons.train
+                        : Icons.settings,
+                key: Key(
+                  tab == AppTab.departureMonitor
+                      ? 'departureMonitor'
+                      : tab == AppTab.routePlanning
+                          ? 'routePlanning'
+                          : 'settings',
+                ),
+              ),
+              title: Text(tab == AppTab.departureMonitor
+                  ? 'Departure Monitor'
+                  : tab == AppTab.routePlanning
+                      ? 'Route Planning'
+                      : 'Settings'),
             );
           }).toList(),
         );
@@ -53,8 +71,9 @@ class _ViewModel {
   }
 
   @override
-  bool operator == (Object other) =>
-      identical(this, other) || other is _ViewModel &&
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _ViewModel &&
           runtimeType == other.runtimeType &&
           activeTab == other.activeTab;
 

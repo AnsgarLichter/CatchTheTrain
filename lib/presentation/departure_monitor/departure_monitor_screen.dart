@@ -9,7 +9,7 @@ import 'package:myapp/presentation/tabsTest/live_departure_tab.dart';
 class DepartureMonitorScreen extends StatelessWidget {
   final List<Stop> stops;
   final List<Stop> favouredStops;
-  final List<Departure> departures;
+  final Map<Stop, List<Departure>> departures;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
   final Function(String) onSave;
@@ -29,31 +29,14 @@ class DepartureMonitorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLoading(builder: (context, loading) {
-      // return loading ? LoadingIndicator(key: Key('loading')) : _buildDepartureMonitorScreen(); //TODO: global keys
       return _buildDepartureMonitorScreen();
     });
   }
-
-/*  Material _buildDepartureMonitorScreen() {
-    return Material( //TODO: Insert tabView instead of Material
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SearchStopForm(onSave),
-            stops.length > 0 ? StopsList(stops: stops, onOppose: onOppose, onFavour: onFavour) : Container(width: 0, height: 0),
-            //TODO: Create tabs => one tab per saved stop in database
-          ],
-        ),
-      ),
-    );
-  }*/
 
   DefaultTabController _buildDepartureMonitorScreen() {
     var tabs = <Widget>[];
     tabs.add(_buildSearchStopScreen());
     tabs.addAll(_buildLiveDepartureScreen());
-
 
     return DefaultTabController(
       length: tabs.length,
@@ -65,7 +48,6 @@ class DepartureMonitorScreen extends StatelessWidget {
     );
   }
 
-  //TODO: Update tabs / departures if onOppose / onFavor is called
   Widget _buildSearchStopScreen() {
     return Center(
       child: Column(

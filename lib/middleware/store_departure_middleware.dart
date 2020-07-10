@@ -17,7 +17,7 @@ Middleware<AppState> _createLoadDepartures(DeparturesRepository repository) {
     repository.loadDepartures(action.stop).then(
       (departures) {
         store.dispatch(
-          DeparturesLoadedAction(departures.toList()),
+          DeparturesLoadedAction({action.stop:departures.toList()}),
         );
       },
     ).catchError((error) => store.dispatch(StopsNotLoadedAction(error)));

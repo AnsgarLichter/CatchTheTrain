@@ -38,7 +38,7 @@ class DepartureMonitor extends StatelessWidget {
 class _ViewModel {
   final List<Stop> stops;
   final List<Stop> favouredStops;
-  final List<Departure> departures;
+  final Map<Stop, List<Departure>> departures;
   final bool loading;
   final Function(String) onSave;
   final Function(Stop) onOppose;
@@ -67,9 +67,11 @@ class _ViewModel {
       },
       onOppose: (stop) {
         store.dispatch(OpposeStopAction(stop));
+        store.dispatch(LoadFavouredStopsAction());
       },
       onFavour: (stop) {
         store.dispatch(FavourStopAction(stop));
+        store.dispatch(LoadFavouredStopsAction());
       },
       onLoadDepartures: (stop) {
         store.dispatch(LoadDeparturesAction(stop));

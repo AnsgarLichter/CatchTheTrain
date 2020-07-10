@@ -3,6 +3,9 @@ class Departure {
   String destination;
   String time;
   String direction;
+  /* traction shows the number of wagons used. Valid values are:
+  *  0 --> 1 wagon
+  *  2 --> 2 wagons */
   int traction;
   bool lowfloor;
   bool realtime;
@@ -19,6 +22,7 @@ class Departure {
       direction: json['direction'],
       lowfloor: json['lowfloor'],
       realtime: json['realtime'],
+      traction: json['traction'],
     );
   }
 
@@ -30,10 +34,11 @@ class Departure {
               route == other.route &&
               destination == other.destination &&
               time == other.time &&
+              traction == other.traction &&
               direction == other.direction &&
               lowfloor == other.lowfloor &&
               realtime == other.realtime;
 
   @override
-  int get hashCode => route.hashCode ^ destination.hashCode ^ time.hashCode ^ direction.hashCode ^ lowfloor.hashCode ^ realtime.hashCode;
+  int get hashCode => route.hashCode ^ destination.hashCode ^ time.hashCode ^ traction.hashCode ^ direction.hashCode ^ lowfloor.hashCode ^ realtime.hashCode;
 }
