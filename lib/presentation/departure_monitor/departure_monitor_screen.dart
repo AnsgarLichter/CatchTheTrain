@@ -9,7 +9,7 @@ import 'package:myapp/presentation/tabsTest/live_departure_tab.dart';
 class DepartureMonitorScreen extends StatelessWidget {
   final List<Stop> stops;
   final List<Stop> favouredStops;
-  final List<Departure> departures;
+  final Map<Stop, List<Departure>> departures;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
   final Function(String) onSave;
@@ -37,7 +37,6 @@ class DepartureMonitorScreen extends StatelessWidget {
     var tabs = <Widget>[];
     tabs.add(_buildSearchStopScreen());
     tabs.addAll(_buildLiveDepartureScreen());
-
 
     return DefaultTabController(
       length: tabs.length,

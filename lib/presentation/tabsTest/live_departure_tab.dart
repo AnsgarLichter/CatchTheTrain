@@ -6,7 +6,7 @@ import 'package:myapp/presentation/tabsTest/departures_list.dart';
 
 class LiveDepartureTab extends StatefulWidget {
   final Stop stop;
-  final List<Departure> departures;
+  final Map<Stop, List<Departure>> departures;
   final Function(Stop) onLoadDepartures;
 
   LiveDepartureTab(
@@ -30,8 +30,8 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
         child: Column(
         children: <Widget>[
         _buildStopSign(),
-        widget.departures != null
-            ? DeparturesList(widget.departures)
+        widget.departures.length > 0
+            ? DeparturesList(widget.departures[widget.stop])
             : Text(''),
       ],
     ));

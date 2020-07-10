@@ -9,7 +9,7 @@ class AppState {
   final bool isLoading;
   final List<Stop> stops;
   final List<Stop> favouredStops;
-  final List<Departure> departures;
+  final Map<Stop, List<Departure>> departures;
   final AppTab activeTab;
   final VisibilityFilter activeFilter;
 
@@ -17,7 +17,7 @@ class AppState {
     this.isLoading = false,
     this.stops = const [],
     this.favouredStops = const [],
-    this.departures = const[],
+    this.departures = const {},
     this.activeTab = AppTab.departureMonitor,
     this.activeFilter = VisibilityFilter.all
   });

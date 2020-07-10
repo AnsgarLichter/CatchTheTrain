@@ -134,7 +134,7 @@ class LoadDeparturesAction {
 }
 
 class DeparturesLoadedAction {
-  final List<Departure> departures;
+  final Map<Stop, List<Departure>> departures;
 
   DeparturesLoadedAction(this.departures);
 
