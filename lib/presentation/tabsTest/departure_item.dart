@@ -31,6 +31,6 @@ class DepartureItem extends StatelessWidget {
                                 .white)), //Icon(Icons.directions_transit),
                   ),
                 ))),
-        trailing: Text(time));
+        trailing: Text(time == '0' ? 'sofort' : time));
   }
 }
