@@ -67,9 +67,11 @@ class _ViewModel {
       },
       onOppose: (stop) {
         store.dispatch(OpposeStopAction(stop));
+        store.dispatch(LoadFavouredStopsAction());
       },
       onFavour: (stop) {
         store.dispatch(FavourStopAction(stop));
+        store.dispatch(LoadFavouredStopsAction());
       },
       onLoadDepartures: (stop) {
         store.dispatch(LoadDeparturesAction(stop));
