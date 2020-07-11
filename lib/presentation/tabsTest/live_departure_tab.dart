@@ -12,14 +12,18 @@ class LiveDepartureTab extends StatefulWidget {
   final Map<Stop, List<Departure>> departures;
   final String errorMessage;
   final Function(Stop, String) onLoadDepartures;
+  final Function(Stop) onSaveFilter;
+  final Function(Stop) onDeleteFilter;
   final _formKey = GlobalKey<FormState>();
 
-  LiveDepartureTab(
-      {@required this.stop,
-      this.departures,
-      @required this.onLoadDepartures,
-      @required this.errorMessage})
-      : super(key: Key(stop.id));
+  LiveDepartureTab({
+    @required this.stop,
+    this.departures,
+    @required this.onLoadDepartures,
+    @required this.errorMessage,
+    @required this.onSaveFilter,
+    @required this.onDeleteFilter,
+  }) : super(key: Key(stop.id));
 
   @override
   LiveDepartureTabState createState() => LiveDepartureTabState();
@@ -30,6 +34,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
 
   @override
   void initState() {
+    line = widget.stop.filter;
     widget.onLoadDepartures(widget.stop, line);
     super.initState();
   }
@@ -124,9 +129,30 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
   void _onBottomSheetFilterButtonPressed() {
     final formState = widget._formKey.currentState;
 
-    if (formState.validate()) {
+    if (line.isNotEmpty) {
+      line = '';
+      widget.onLoadDepartures(widget.stop, line);
+    } else if (formState.validate()) {
+      formState.save();
+    }
+
+    Navigator.pop(context);
+  }
+
+  void _onBottomSheetSaveButtonPressed() {
+    final formState = widget._formKey.currentState;
+
+    if (widget.stop.filter.isNotEmpty) {
+      line = '';
+      widget.stop.filter = '';
+      widget.onDeleteFilter(widget.stop);
+      widget.onLoadDepartures(widget.stop, line);
+      Navigator.pop(context);
+    } else if (formState.validate()) {
       formState.save();
       Navigator.pop(context);
+      widget.stop.filter = line;
+      widget.onDeleteFilter(widget.stop);
     }
   }
 
@@ -164,7 +190,9 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         FloatingActionButton.extended(
-                          label: Text('Filter'), //TODO: Internationalization
+                          label: Text(line.isNotEmpty
+                              ? 'Filter löschen'
+                              : 'Filter anwenden'), //TODO: Internationalization
                           icon: Icon(FontAwesome.filter),
                           backgroundColor: line.isNotEmpty
                               ? Theme.of(context).primaryColorDark
@@ -172,9 +200,16 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                           onPressed: _onBottomSheetFilterButtonPressed,
                         ),
                         FloatingActionButton.extended(
-                          label: Text('Speichern'), //TODO: Internationalization
-                          icon: Icon(Icons.save),
-                          backgroundColor: Theme.of(context).primaryColorLight,
+                          label: Text(widget.stop.filter.isNotEmpty
+                              ? 'Löschen'
+                              : 'Speichern'), //TODO: Internationalization
+                          icon: Icon(widget.stop.filter.isNotEmpty
+                              ? Icons.save
+                              : Icons.delete),
+                          backgroundColor: widget.stop.filter.isNotEmpty
+                              ? Theme.of(context).primaryColorDark
+                              : Theme.of(context).primaryColorLight,
+                          onPressed: _onBottomSheetSaveButtonPressed,
                         ),
                       ],
                     ),

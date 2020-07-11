@@ -15,6 +15,8 @@ class DepartureMonitorScreen extends StatelessWidget {
   final Function(Stop) onFavour;
   final Function(String) onSave;
   final Function(Stop, String) onLoadDepartures;
+  final Function(Stop) onSaveFilter;
+  final Function(Stop) onDeleteFilter;
 
   DepartureMonitorScreen({
     Key key,
@@ -26,6 +28,8 @@ class DepartureMonitorScreen extends StatelessWidget {
     @required this.onFavour,
     @required this.onSave,
     @required this.onLoadDepartures,
+    @required this.onSaveFilter,
+    @required this.onDeleteFilter,
   });
 
   @override
@@ -66,7 +70,7 @@ class DepartureMonitorScreen extends StatelessWidget {
     var tabs = <Widget>[];
 
     favouredStops.forEach((stop) {
-      tabs.add(LiveDepartureTab(stop: stop, onLoadDepartures: onLoadDepartures, departures: departures, errorMessage: errorMessage));
+      tabs.add(LiveDepartureTab(stop: stop, departures: departures, errorMessage: errorMessage, onLoadDepartures: onLoadDepartures, onSaveFilter: onSaveFilter, onDeleteFilter: onDeleteFilter));
     });
 
     return tabs;

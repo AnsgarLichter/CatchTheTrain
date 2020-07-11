@@ -57,3 +57,25 @@ class DeparturesByLineNotLoadedAction {
     return 'DeparturesByLineNotLoadedAction{error: $error}';
   }
 }
+
+class SaveDeparturesFilterAction{
+  final Stop stop;
+
+  SaveDeparturesFilterAction(this.stop);
+
+  @override
+  String toString() {
+    return 'SaveDeparturesFilterAction{stop: $stop}';
+  }
+}
+
+class DeleteDeparturesFilterAction{
+  final Stop stop;
+
+  DeleteDeparturesFilterAction(this.stop);
+
+  @override
+  String toString() {
+    return 'SaveDeparturesFilterAction{stop: $stop}';
+  }
+}

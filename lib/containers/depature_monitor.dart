@@ -29,6 +29,8 @@ class DepartureMonitor extends StatelessWidget {
           onOppose: vm.onOppose,
           onFavour: vm.onFavour,
           onLoadDepartures: vm.onLoadDepartures,
+          onSaveFilter: vm.onSaveFilter,
+          onDeleteFilter: vm.onDeleteFilter,
         );
       },
     );
@@ -45,6 +47,8 @@ class _ViewModel {
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
   final Function(Stop, String) onLoadDepartures;
+  final Function(Stop) onSaveFilter;
+  final Function(Stop) onDeleteFilter;
 
   _ViewModel({
     @required this.stops,
@@ -56,6 +60,8 @@ class _ViewModel {
     @required this.onOppose,
     @required this.onFavour,
     @required this.onLoadDepartures,
+    @required this.onSaveFilter,
+    @required this.onDeleteFilter,
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
@@ -81,6 +87,12 @@ class _ViewModel {
           store.dispatch(LoadDeparturesByLineAction(stop, line));
         else
           store.dispatch(LoadDeparturesAction(stop));
+      },
+      onSaveFilter: (stop) {
+        store.dispatch(SaveDeparturesFilterAction(stop));
+      },
+      onDeleteFilter: (stop) {
+        store.dispatch(DeleteDeparturesFilterAction(stop));
       },
     );
   }

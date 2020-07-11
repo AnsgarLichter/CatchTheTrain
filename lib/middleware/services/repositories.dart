@@ -9,6 +9,8 @@ abstract class StopsRepository {
   void delete(Stop stop);
 
   void insert(Stop stop);
+
+  Future<int> update(Stop stop);
 }
 
 

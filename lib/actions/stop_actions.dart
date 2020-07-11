@@ -58,7 +58,6 @@ class OpposeStopAction {
   }
 
 }
-
 class FavourStopAction {
   final Stop stop;
 
