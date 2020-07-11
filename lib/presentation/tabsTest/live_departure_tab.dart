@@ -53,7 +53,9 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
               child: Container(
                 margin: EdgeInsets.only(top: 30.0, bottom: 15.0, right: 15.0),
                 child: FloatingActionButton(
-                    backgroundColor: line.isNotEmpty ? Theme.of(context).primaryColorDark : Theme.of(context).primaryColorLight,
+                    backgroundColor: line.isNotEmpty
+                        ? Theme.of(context).primaryColorDark
+                        : Theme.of(context).primaryColorLight,
                     onPressed: () => _onFilterButtonPressed(context),
                     child: Icon(FontAwesome.filter)),
               ),
@@ -102,24 +104,30 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
   }
 
   String _onValidateForm(String value) {
-    final regExp = new RegExp(r'^[S]?[\d]{1,2}$', caseSensitive: false, multiLine: false);
-    if(line.isNotEmpty && value.isEmpty) {
+    final regExp =
+        new RegExp(r'^[S]?[\d]{1,2}$', caseSensitive: false, multiLine: false);
+    if (line.isNotEmpty && value.isEmpty) {
       line = value;
       widget.onLoadDepartures(widget.stop, line);
       return null;
-    }
-    else if (!regExp.hasMatch(value))
+    } else if (!regExp.hasMatch(value))
       return 'z. B: 1, S1, S32';
-    else {
-      line = value;
+    else
       return null;
-    }
+  }
+
+  void _onSaveForm(String value) {
+    line = value;
+    widget.onLoadDepartures(widget.stop, line);
   }
 
   void _onBottomSheetFilterButtonPressed() {
-    // if (widget._formKey.currentState.validate())
-      widget.onLoadDepartures(widget.stop, line);
+    final formState = widget._formKey.currentState;
+
+    if (formState.validate()) {
+      formState.save();
       Navigator.pop(context);
+    }
   }
 
   void _onFilterButtonPressed(BuildContext context) {
@@ -133,9 +141,6 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
             child: Form(
               key: widget._formKey,
               autovalidate: true,
-              onChanged: () {
-                Form.of(primaryFocus.context).save();
-              },
               child: Column(
                 children: <Widget>[
                   TextFormField(
@@ -147,6 +152,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                     ),
                     maxLength: 3,
                     validator: _onValidateForm,
+                    onSaved: _onSaveForm,
                     initialValue: line,
                   ),
                   SizedBox(
@@ -160,7 +166,9 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                         FloatingActionButton.extended(
                           label: Text('Filter'), //TODO: Internationalization
                           icon: Icon(FontAwesome.filter),
-                          backgroundColor: Theme.of(context).primaryColorLight,
+                          backgroundColor: line.isNotEmpty
+                              ? Theme.of(context).primaryColorDark
+                              : Theme.of(context).primaryColorLight,
                           onPressed: _onBottomSheetFilterButtonPressed,
                         ),
                         FloatingActionButton.extended(
