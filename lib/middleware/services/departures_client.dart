@@ -18,7 +18,7 @@ class DeparturesClient extends DeparturesRepository {
 
     final http.Response response = await http.get(requestUrl);
     if (response.statusCode == 200) {
-      return _mapResponse(response);
+      return _parseResponse(response);
     } else {
       throw Exception('Failed to load departures');
     }
@@ -33,7 +33,7 @@ class DeparturesClient extends DeparturesRepository {
 
     final http.Response response = await http.get(requestUrl);
     if (response.statusCode == 200) {
-      return _mapResponse(response);
+      return _parseResponse(response);
     } else if (response.statusCode == 400) {
       throw Exception('Die Linie $line fährt an der Haltestelle ${stop.name} nicht!');
     } else {
@@ -41,7 +41,7 @@ class DeparturesClient extends DeparturesRepository {
     }
   }
 
-  Future<List<Departure>> _mapResponse(http.Response response) async {
+  Future<List<Departure>> _parseResponse(http.Response response) async {
     final responseJson = json.decode(response.body);
     List departures = responseJson['departures'];
     return departures
