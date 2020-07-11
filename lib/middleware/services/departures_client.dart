@@ -7,10 +7,13 @@ import 'package:myapp/models/stop.dart';
 import 'package:http/http.dart' as http;
 
 class DeparturesClient extends DeparturesRepository {
+  static const API_KEY = '377d840e54b59adbe53608ba1aad70e8';
+
   @override
   Future<List<Departure>> loadDepartures(Stop stop) async {
     String requestUrl = //TODO: service constants => byName / byStop / ...
-        'https://live.kvv.de/webapp/departures/bystop/:stop_id?maxInfos=10&key=377d840e54b59adbe53608ba1aad70e8'; //TODO: API_KEY as constant
+        'https://live.kvv.de/webapp/departures/bystop/:stop_id?maxInfos=10&key=:api_key'; //TODO: API_KEY as constant
+    requestUrl = requestUrl.replaceAll(':api_key', API_KEY);
     requestUrl = requestUrl.replaceAll(':stop_id', stop.id);
 
     final http.Response response = await http.get(requestUrl);
@@ -23,7 +26,8 @@ class DeparturesClient extends DeparturesRepository {
 
   Future<List<Departure>> loadDeparturesByLine(Stop stop, String line) async {
     String requestUrl =
-        'https://live.kvv.de/webapp/departures/byroute/:line_id/:stop_id?maxInfos=10&key=377d840e54b59adbe53608ba1aad70e8';
+        'https://live.kvv.de/webapp/departures/byroute/:line_id/:stop_id?maxInfos=10&key=:api_key';
+    requestUrl = requestUrl.replaceAll(':api_key', API_KEY);
     requestUrl = requestUrl.replaceAll(':stop_id', stop.id);
     requestUrl = requestUrl.replaceAll(':line_id', line);
 
