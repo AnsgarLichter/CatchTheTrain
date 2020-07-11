@@ -34,7 +34,9 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return GestureDetector(
+        onVerticalDragEnd: _onSwipeUp,
+        child: Center(
         child: Column(
       children: <Widget>[
         _buildStopSign(),
@@ -45,14 +47,12 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                 ? LoadingIndicator()
                 : DeparturesList(widget.departures[widget.stop]),
       ],
-    ));
+    )));
   }
 
   Widget _buildStopSign() {
     final textTheme = Theme.of(context).textTheme;
-    return GestureDetector(
-        onVerticalDragEnd: _onSwipeUp,
-        child: Container(
+    return Container(
             margin: const EdgeInsets.only(top: 30.0, bottom: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +88,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                       child: Icon(Icons.train),
                     )),
               ],
-            )));
+            ));
   }
 
   Widget _buildFilterLineForm() {
