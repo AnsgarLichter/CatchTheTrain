@@ -31,6 +31,7 @@ class LiveDepartureTab extends StatefulWidget {
 
 class LiveDepartureTabState extends State<LiveDepartureTab> {
   String line = '';
+  bool valueModified = false;
 
   @override
   void initState() {
@@ -47,9 +48,8 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
         child: Column(
           children: <Widget>[
             _buildStopSign(),
-            //_buildFilterLineForm(),
             widget.errorMessage.isNotEmpty
-                ? Text(widget.errorMessage)
+                ? _buildErrorMessage()
                 : widget.departures.length == 0
                     ? LoadingIndicator()
                     : DeparturesList(widget.departures[widget.stop]),
@@ -108,6 +108,19 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
         ));
   }
 
+  Widget _buildErrorMessage() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(Icons.warning, color: Colors.red, size: 150,),
+        Container(
+          margin: EdgeInsets.only(left: 30.0, right: 30.0),
+          child: Text(widget.errorMessage.replaceAll('Exception: ', ''), style: Theme.of(context).textTheme.bodyText1),
+        )
+      ],
+    );
+  }
+
   String _onValidateForm(String value) {
     final regExp =
         new RegExp(r'^[S]?[\d]{1,2}$', caseSensitive: false, multiLine: false);
@@ -117,19 +130,22 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
       return null;
     } else if (!regExp.hasMatch(value))
       return 'z. B: 1, S1, S32';
-    else
+    else {
+      valueModified = value == line ? false : true;
       return null;
+    }
   }
 
   void _onSaveForm(String value) {
     line = value;
+    valueModified = false;
     widget.onLoadDepartures(widget.stop, line);
   }
 
   void _onBottomSheetFilterButtonPressed() {
     final formState = widget._formKey.currentState;
 
-    if (line.isNotEmpty) {
+    if (!valueModified && line.isNotEmpty) {
       line = '';
       widget.onLoadDepartures(widget.stop, line);
     } else if (formState.validate()) {
@@ -152,7 +168,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
       formState.save();
       Navigator.pop(context);
       widget.stop.filter = line;
-      widget.onDeleteFilter(widget.stop);
+      widget.onSaveFilter(widget.stop);
     }
   }
 
@@ -191,11 +207,15 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                       children: <Widget>[
                         FloatingActionButton.extended(
                           label: Text(line.isNotEmpty
-                              ? 'Filter löschen'
+                              ? valueModified
+                                  ? 'Filter anwenden'
+                                  : 'Filter löschen'
                               : 'Filter anwenden'), //TODO: Internationalization
                           icon: Icon(FontAwesome.filter),
                           backgroundColor: line.isNotEmpty
-                              ? Theme.of(context).primaryColorDark
+                              ? valueModified
+                                  ? Theme.of(context).primaryColorLight
+                                  : Theme.of(context).primaryColorDark
                               : Theme.of(context).primaryColorLight,
                           onPressed: _onBottomSheetFilterButtonPressed,
                         ),
@@ -204,8 +224,8 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                               ? 'Löschen'
                               : 'Speichern'), //TODO: Internationalization
                           icon: Icon(widget.stop.filter.isNotEmpty
-                              ? Icons.save
-                              : Icons.delete),
+                              ? Icons.delete
+                              : Icons.save),
                           backgroundColor: widget.stop.filter.isNotEmpty
                               ? Theme.of(context).primaryColorDark
                               : Theme.of(context).primaryColorLight,
