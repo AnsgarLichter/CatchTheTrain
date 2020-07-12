@@ -12,6 +12,7 @@ class AppState {
   final Map<Stop, List<Departure>> departures;
   final AppTab activeTab;
   final VisibilityFilter activeFilter;
+  final String errorMessage;
 
   AppState({
     this.isLoading = false,
@@ -19,7 +20,8 @@ class AppState {
     this.favouredStops = const [],
     this.departures = const {},
     this.activeTab = AppTab.departureMonitor,
-    this.activeFilter = VisibilityFilter.all
+    this.activeFilter = VisibilityFilter.all,
+    this.errorMessage = '',
   });
 
   factory AppState.loading() => AppState(isLoading: true);

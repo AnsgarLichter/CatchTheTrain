@@ -9,9 +9,13 @@ abstract class StopsRepository {
   void delete(Stop stop);
 
   void insert(Stop stop);
+
+  Future<int> update(Stop stop);
 }
 
 
 abstract class DeparturesRepository {
   Future<List<Departure>> loadDepartures(Stop stop);
+
+  Future<List<Departure>> loadDeparturesByLine(Stop stop, String line);
 }
