@@ -9,12 +9,15 @@ List<Middleware<AppState>> createStoreStopsMiddleware(
   final loadFavouredStops = _createLoadFavouredStops(stopsRepository);
   final deleteStop = _createDeleteStops(stopsRepository);
   final insertStop = _createInsertStops(stopsRepository);
+  final updateStop = _createUpdateFilter(stopsRepository);
 
   return [
     TypedMiddleware<AppState, LoadStopsAction>(loadStops),
     TypedMiddleware<AppState, LoadFavouredStopsAction>(loadFavouredStops),
     TypedMiddleware<AppState, OpposeStopAction>(deleteStop),
     TypedMiddleware<AppState, FavourStopAction>(insertStop),
+    TypedMiddleware<AppState, SaveDeparturesFilterAction>(updateStop),
+    TypedMiddleware<AppState, DeleteDeparturesFilterAction>(updateStop),
   ];
 }
 
@@ -35,7 +38,7 @@ Middleware<AppState> _createLoadStops(StopsRepository repository) {
 Middleware<AppState> _createLoadFavouredStops(StopsRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
     repository.loadFavouredStops().then(
-          (stops) {
+      (stops) {
         store.dispatch(
           FavouredStopsLoadedAction(stops.toList()),
         );
@@ -58,6 +61,18 @@ Middleware<AppState> _createInsertStops(StopsRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
     repository.insert(action.stop);
     action.stop.isFavoured = true;
+    next(action);
+  };
+}
+
+Middleware<AppState> _createUpdateFilter(StopsRepository repository) {
+  return (Store<AppState> store, action, NextDispatcher next) {
+    repository.update(action.stop).then(
+        (id) {
+          //TODO: check if working --> I think not
+          store.dispatch(LoadFavouredStopsAction());
+        }
+    );
     next(action);
   };
 }

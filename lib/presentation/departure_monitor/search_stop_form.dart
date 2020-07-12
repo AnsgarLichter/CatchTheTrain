@@ -17,6 +17,7 @@ class SearchStopForm extends StatelessWidget {
         margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 30.0),
         child: TextFormField(
           decoration: const InputDecoration(
+            border: OutlineInputBorder(),
             icon: Icon(Icons.train),
             hintText: 'Enter station name', //TODO: localization
             labelText: 'Station name', //TODO: localization

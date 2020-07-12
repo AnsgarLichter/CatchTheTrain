@@ -30,6 +30,11 @@ class StopsClient implements StopsRepository {
     helper.insert(stop);
   }
 
+  Future<int> update(Stop stop) async{
+    int id = await helper.update(stop);
+    return id;
+  }
+
   Future<List<Stop>> _loadStopsFromLiveAPI(String name) async {
     String requestUrl = //TODO: service constants => byName / byStop / ...
         'https://live.kvv.de/webapp/stops/byname/:name?key=377d840e54b59adbe53608ba1aad70e8';

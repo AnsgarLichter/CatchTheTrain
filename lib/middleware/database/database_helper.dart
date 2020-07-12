@@ -9,12 +9,13 @@ class DatabaseHelper {
   final String tableStops = 'stops';
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 1;
+  static final _databaseVersion = 2;
 
   static final String columnId = 'id';
   static final String columnName = 'name';
   static final String columnLat = 'lat';
   static final String columnLon = 'lon';
+  static final String columnFilter = 'filter';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -40,7 +41,8 @@ class DatabaseHelper {
                 $columnId TEXT PRIMARY KEY,
                 $columnName TEXT NOT NULL,
                 $columnLat REAL NOT NULL,
-                $columnLon REAL NOT NULL
+                $columnLon REAL NOT NULL,
+                $columnFilter TEXT
               )''');
   }
 
@@ -53,9 +55,22 @@ class DatabaseHelper {
   Future<Stop> queryStop(String name) async {
     Database db = await database;
     List<Map> maps = await db.query(tableStops,
-        columns: [columnId, columnName, columnLon, columnLat],
+        columns: [columnId, columnName, columnFilter, columnLon, columnLat],
         where: '$columnName = ?',
         whereArgs: [name]);
+    if (maps.length > 0) {
+      return Stop.fromMap(maps.first);
+    }
+    return null;
+  }
+
+  Future<Stop> getStop(String id) async {
+    Database db = await database;
+    List<Map> maps = await db.query(tableStops,
+        columns: [columnId, columnName, columnFilter, columnLon, columnLat],
+        where: '$columnId = ?',
+        whereArgs: [id]);
+
     if (maps.length > 0) {
       return Stop.fromMap(maps.first);
     }
@@ -65,7 +80,7 @@ class DatabaseHelper {
   Future<List<Stop>> queryAll() async {
     Database db = await database;
     List<Map> maps = await db.query(tableStops,
-        columns: [columnId, columnName, columnLon, columnLat]);
+        columns: [columnId, columnName, columnFilter, columnLon, columnLat]);
     if (maps.length > 0) {
       return List.generate(maps.length, (i) {
         return Stop.fromMap(maps[i]);
@@ -77,6 +92,12 @@ class DatabaseHelper {
   Future<int> delete(Stop stop) async {
     Database db = await database;
     int id = await db.delete(tableStops, where: 'id = ?', whereArgs: [stop.id]);
+    return id;
+  }
+
+  Future<int> update(Stop stop) async {
+    Database db = await database;
+    int id = await db.update(tableStops, stop.toMap(), where: 'id = ?', whereArgs: [stop.id]);
     return id;
   }
 }
