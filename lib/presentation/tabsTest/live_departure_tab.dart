@@ -44,29 +44,25 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onVerticalDragEnd: _onSwipeUp,
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            _buildStopSign(),
-            widget.errorMessage.isNotEmpty
-                ? _buildErrorMessage()
-                : widget.departures.length == 0
-                    ? LoadingIndicator()
-                    : DeparturesList(widget.departures[widget.stop]),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                margin: EdgeInsets.only(top: 30.0, bottom: 15.0, right: 15.0),
-                child: FloatingActionButton(
-                    backgroundColor: line.isNotEmpty
-                        ? Theme.of(context).primaryColorDark
-                        : Theme.of(context).primaryColorLight,
-                    onPressed: () => _onFilterButtonPressed(context),
-                    child: Icon(FontAwesome.filter)),
-              ),
-            )
-          ],
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              _buildStopSign(),
+              widget.errorMessage.isNotEmpty
+                  ? _buildErrorMessage()
+                  : widget.departures.length == 0
+                      ? LoadingIndicator()
+                      : DeparturesList(widget.departures[widget.stop]),
+            ],
+          ),
         ),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: line.isNotEmpty
+                ? Theme.of(context).primaryColorDark
+                : Theme.of(context).primaryColorLight,
+            onPressed: () => _onFilterButtonPressed(context),
+            child: Icon(FontAwesome.filter)),
       ),
     );
   }
@@ -112,10 +108,15 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(Icons.warning, color: Colors.red, size: 150,),
+        Icon(
+          Icons.warning,
+          color: Colors.red,
+          size: 150,
+        ),
         Container(
           margin: EdgeInsets.only(left: 30.0, right: 30.0),
-          child: Text(widget.errorMessage.replaceAll('Exception: ', ''), style: Theme.of(context).textTheme.bodyText1),
+          child: Text(widget.errorMessage.replaceAll('Exception: ', ''),
+              style: Theme.of(context).textTheme.bodyText1),
         )
       ],
     );
