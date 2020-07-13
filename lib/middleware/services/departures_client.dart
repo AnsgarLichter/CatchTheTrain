@@ -19,6 +19,8 @@ class DeparturesClient extends DeparturesRepository {
     final http.Response response = await http.get(requestUrl);
     if (response.statusCode == 200) {
       return _parseResponse(response);
+    } else if (response.statusCode == 400){
+      throw Exception('An dieser Haltestelle sind keine Echtzeitinformationen verfügbar!');
     } else {
       throw Exception('Failed to load departures');
     }
