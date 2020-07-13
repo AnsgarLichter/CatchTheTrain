@@ -5,9 +5,11 @@ import 'package:myapp/models/stop.dart';
 import 'package:myapp/presentation/departure_monitor/favoured_stops_overview.dart';
 import 'package:myapp/presentation/departure_monitor/search_stop_form.dart';
 import 'package:myapp/presentation/departure_monitor/stops_list.dart';
+import 'package:myapp/presentation/loading_indicator.dart';
 import 'package:myapp/presentation/tabsTest/live_departure_tab.dart';
 
 class DepartureMonitorScreen extends StatelessWidget {
+  final bool isLoading;
   final List<Stop> stops;
   final List<Stop> favouredStops;
   final Map<Stop, List<Departure>> departures;
@@ -21,6 +23,7 @@ class DepartureMonitorScreen extends StatelessWidget {
 
   DepartureMonitorScreen({
     Key key,
+    @required this.isLoading,
     @required this.stops,
     @required this.favouredStops,
     @required this.departures,
@@ -65,6 +68,7 @@ class DepartureMonitorScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           SearchStopForm(onSave),
+          isLoading ? LoadingIndicator :
           stops.length > 0
               ? StopsList(stops, onOppose, onFavour)
               : Container(width: 0, height: 0),
@@ -78,6 +82,7 @@ class DepartureMonitorScreen extends StatelessWidget {
 
     favouredStops.forEach((stop) {
       tabs.add(LiveDepartureTab(
+          isLoading: isLoading,
           stop: stop,
           departures: departures,
           errorMessage: errorMessage,
