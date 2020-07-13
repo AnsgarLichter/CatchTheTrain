@@ -12,6 +12,7 @@ class AppState {
   final Map<Stop, List<Departure>> departures;
   final AppTab activeTab;
   final VisibilityFilter activeFilter;
+  final String searchTerm;
   final String errorMessage;
 
   AppState({
@@ -21,6 +22,7 @@ class AppState {
     this.departures = const {},
     this.activeTab = AppTab.departureMonitor,
     this.activeFilter = VisibilityFilter.all,
+    this.searchTerm = '',
     this.errorMessage = '',
   });
 
@@ -33,6 +35,8 @@ class AppState {
     List<Departure> departures,
     AppTab activeTab,
     VisibilityFilter activeFilter,
+    String searchTerm,
+    String errorMessage,
   }) {
     return AppState(
       isLoading: isLoading ?? this.isLoading,
@@ -41,6 +45,8 @@ class AppState {
       departures: departures ?? this.departures,
       activeTab: activeTab ?? this.activeTab,
       activeFilter: activeFilter ?? this.activeFilter,
+      searchTerm: searchTerm?.isNotEmpty ?? this.searchTerm,
+      errorMessage: errorMessage?.isNotEmpty ?? this.errorMessage,
     );
   }
 
@@ -51,23 +57,26 @@ class AppState {
       departures.hashCode ^
       isLoading.hashCode ^
       activeTab.hashCode ^
-      activeFilter.hashCode;
+      activeFilter.hashCode ^
+      searchTerm.hashCode ^
+      errorMessage.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is AppState &&
-              runtimeType == other.runtimeType &&
-              stops == other.stops &&
-              favouredStops == other.favouredStops &&
-              departures == other.departures &&
-              isLoading == other.isLoading &&
-              activeTab == other.activeTab &&
-              activeFilter == other.activeFilter;
+      other is AppState &&
+          runtimeType == other.runtimeType &&
+          stops == other.stops &&
+          favouredStops == other.favouredStops &&
+          departures == other.departures &&
+          isLoading == other.isLoading &&
+          activeTab == other.activeTab &&
+          activeFilter == other.activeFilter &&
+          searchTerm == other.searchTerm &&
+          errorMessage == other.errorMessage;
 
   @override
   String toString() {
-    return 'AppState{isLoading: $isLoading, stops: $stops, favouredStops: $favouredStops, departures: $departures, activeTab: $activeTab, activeFilter: $activeFilter}';
+    return 'AppState{isLoading: $isLoading, stops: $stops, favouredStops: $favouredStops, departures: $departures, activeTab: $activeTab, activeFilter: $activeFilter, searchTerm: $searchTerm, errorMessage: $errorMessage}';
   }
 }
-
