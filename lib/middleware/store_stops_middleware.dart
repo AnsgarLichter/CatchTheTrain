@@ -40,7 +40,7 @@ Middleware<AppState> _createLoadFavouredStops(StopsRepository repository) {
     repository.loadFavouredStops().then(
       (stops) {
         store.dispatch(
-          FavouredStopsLoadedAction(stops.toList()),
+          FavouredStopsLoadedAction(stops != null ? stops.toList() : []),
         );
       },
     ).catchError((error) => store.dispatch(StopsNotLoadedAction(error)));
