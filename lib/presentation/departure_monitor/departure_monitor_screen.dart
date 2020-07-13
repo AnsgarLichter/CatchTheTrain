@@ -66,7 +66,7 @@ class DepartureMonitorScreen extends StatelessWidget {
         children: <Widget>[
           SearchStopForm(onSave),
           stops.length > 0
-              ? StopsList(stops: stops, onOppose: onOppose, onFavour: onFavour)
+              ? StopsList(stops, onOppose, onFavour)
               : Container(width: 0, height: 0),
         ],
       ),

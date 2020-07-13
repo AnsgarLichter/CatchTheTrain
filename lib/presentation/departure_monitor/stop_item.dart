@@ -6,22 +6,31 @@ class StopItem extends StatelessWidget {
   final Stop stop;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
+  final Function(BuildContext, Stop) onStopTapped;
 
-  StopItem(
-      {@required this.stop, @required this.onOppose, @required this.onFavour});
+  StopItem(this.stop, this.onOppose, this.onFavour, {this.onStopTapped});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(stop.name),
-      leading: Icon(Icons.directions_transit, color: Theme.of(context).primaryColor),
-      trailing: Icon(stop.isFavoured ? Icons.favorite : Icons.favorite_border,
-          color: stop.isFavoured ? Colors.red : null),
-      onTap: _onStopTapped,
+      leading: Icon(Icons.directions_transit, color: Theme
+          .of(context)
+          .primaryColor),
+      trailing: IconButton(
+          icon: Icon(stop.isFavoured ? Icons.favorite : Icons.favorite_border,
+              color: stop.isFavoured ? Colors.red : null),
+          color: Colors.white,
+          onPressed: _onIconPressed,),
+      onTap: () => _onStopTapped(context),
     );
   }
 
-  void _onStopTapped() {
+  void _onStopTapped(BuildContext context) {
+    onStopTapped != null ? onStopTapped(context, stop) : _onIconPressed();
+  }
+
+  void _onIconPressed() {
     stop.isFavoured ? onOppose(stop) : onFavour(stop);
   }
 }

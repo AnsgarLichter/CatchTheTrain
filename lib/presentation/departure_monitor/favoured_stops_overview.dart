@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:myapp/models/stop.dart';
 import 'package:myapp/presentation/departure_monitor/stops_list.dart';
 
@@ -17,10 +18,14 @@ class FavouredStopsOverview extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            favouredStops.length > 0 ? StopsList(stops: favouredStops, onOppose: onOppose, onFavour: onFavour,) : Container(width: 0, height: 0,)
+            favouredStops.length > 0 ? StopsList(favouredStops, onOppose, onFavour, onStopTapped: onStopTapped,) : Container(width: 0, height: 0,)
           ],
         ),
       )
     );
+  }
+
+  void onStopTapped(BuildContext context, Stop stop) {
+     DefaultTabController.of(context).animateTo(favouredStops.indexOf(stop) + 2);
   }
 }
