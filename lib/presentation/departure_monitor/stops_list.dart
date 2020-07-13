@@ -7,9 +7,9 @@ class StopsList extends StatelessWidget {
   final List<Stop> stops;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
+  final Function(BuildContext, Stop) onStopTapped;
 
-  StopsList(
-      {@required this.stops, @required this.onOppose, @required this.onFavour});
+  StopsList(this.stops, this.onOppose, this.onFavour, {this.onStopTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class StopsList extends StatelessWidget {
           final stop = stops[index];
           return Column(
             children: <Widget>[
-              StopItem(stop: stop, onOppose: onOppose, onFavour: onFavour),
+              StopItem(stop, onOppose, onFavour, onStopTapped: onStopTapped,),
               Divider(height: 1.0),
             ],
           );

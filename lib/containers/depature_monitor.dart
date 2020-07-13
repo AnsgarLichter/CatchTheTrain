@@ -21,6 +21,7 @@ class DepartureMonitor extends StatelessWidget {
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
         return DepartureMonitorScreen(
+          isLoading: vm.isLoading,
           stops: vm.stops,
           favouredStops: vm.favouredStops,
           departures: vm.departures,
@@ -41,7 +42,8 @@ class _ViewModel {
   final List<Stop> stops;
   final List<Stop> favouredStops;
   final Map<Stop, List<Departure>> departures;
-  final bool loading;
+  final bool isLoading;
+  final String searchTerm;
   final String errorMessage;
   final Function(String) onSave;
   final Function(Stop) onOppose;
@@ -54,7 +56,8 @@ class _ViewModel {
     @required this.stops,
     @required this.favouredStops,
     @required this.departures,
-    @required this.loading,
+    @required this.isLoading,
+    @required this.searchTerm,
     @required this.errorMessage,
     @required this.onSave,
     @required this.onOppose,
@@ -69,7 +72,8 @@ class _ViewModel {
       stops: store.state.stops,
       favouredStops: store.state.favouredStops,
       departures: store.state.departures,
-      loading: store.state.isLoading,
+      isLoading: store.state.isLoading,
+      searchTerm: store.state.searchTerm,
       errorMessage: store.state.errorMessage,
       onSave: (name) {
         store.dispatch(LoadStopsAction(name));
@@ -77,10 +81,12 @@ class _ViewModel {
       onOppose: (stop) {
         store.dispatch(OpposeStopAction(stop));
         store.dispatch(LoadFavouredStopsAction());
+        store.dispatch(LoadStopsAction(store.state.searchTerm));
       },
       onFavour: (stop) {
         store.dispatch(FavourStopAction(stop));
         store.dispatch(LoadFavouredStopsAction());
+        store.dispatch(LoadStopsAction(store.state.searchTerm));
       },
       onLoadDepartures: (stop, line) {
         if (line.isNotEmpty)

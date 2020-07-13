@@ -14,6 +14,7 @@ class Stop {
     return Stop(
       id: json['id'],
       name: json['name'],
+      filter: '',
       lat: json['lat'],
       lon: json['lon'],
       isFavoured: false,
