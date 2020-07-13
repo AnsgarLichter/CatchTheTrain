@@ -8,6 +8,7 @@ import 'package:myapp/presentation/loading_indicator.dart';
 import 'package:myapp/presentation/tabsTest/departures_list.dart';
 
 class LiveDepartureTab extends StatefulWidget {
+  final bool isLoading;
   final Stop stop;
   final Map<Stop, List<Departure>> departures;
   final String errorMessage;
@@ -17,6 +18,7 @@ class LiveDepartureTab extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
 
   LiveDepartureTab({
+    @required this.isLoading,
     @required this.stop,
     this.departures,
     @required this.onLoadDepartures,
@@ -42,6 +44,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
 
   @override
   Widget build(BuildContext context) {
+    final departuresStop = widget.departures[widget.stop] ?? [];
     return GestureDetector(
       onVerticalDragEnd: _onSwipeUp,
       child: Scaffold(
@@ -49,11 +52,13 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
           child: Column(
             children: <Widget>[
               _buildStopSign(),
-              widget.errorMessage.isNotEmpty
-                  ? _buildErrorMessage()
-                  : widget.departures.length == 0
-                      ? LoadingIndicator()
-                      : DeparturesList(widget.departures[widget.stop]),
+              widget.isLoading
+                  ? LoadingIndicator()
+                  : widget.errorMessage.isNotEmpty
+                      ? _buildErrorMessage()
+                      : departuresStop.length > 0
+                          ? DeparturesList(departuresStop)
+                          : _buildNoDepartures(),
             ],
           ),
         ),
@@ -105,18 +110,29 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
   }
 
   Widget _buildErrorMessage() {
+    String message = widget.errorMessage.replaceAll('Exception: ', '');
+    return _buildMessage(Icons.warning, Colors.red, message);
+  }
+
+  Widget _buildNoDepartures() {
+    return _buildMessage(
+        Icons.not_interested,
+        Theme.of(context).primaryColorDark,
+        'Es wurden keine Abfahrten gefunden');
+  }
+
+  Widget _buildMessage(IconData icon, Color color, String message) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Icon(
-          Icons.warning,
-          color: Colors.red,
+          icon,
+          color: color,
           size: 150,
         ),
         Container(
           margin: EdgeInsets.only(left: 30.0, right: 30.0),
-          child: Text(widget.errorMessage.replaceAll('Exception: ', ''),
-              style: Theme.of(context).textTheme.bodyText1),
+          child: Text(message, style: Theme.of(context).textTheme.bodyText1),
         )
       ],
     );

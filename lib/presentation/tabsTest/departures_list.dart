@@ -17,20 +17,16 @@ class DeparturesList extends StatelessWidget {
   }
 
   Widget _buildStopsList() {
-    if(departures != null && departures.length > 0) {
-      return ListView.builder(
-          itemCount: departures.length,
-          itemBuilder: (context, index) {
-            final departure = departures[index];
-            return Column(
-              children: <Widget>[
-                DepartureItem(departure),
-                Divider(height: 1.0),
-              ],
-            );
-          });
-    } else {
-      return LoadingIndicator();
-    }
+    return ListView.builder(
+        itemCount: departures.length,
+        itemBuilder: (context, index) {
+          final departure = departures[index];
+          return Column(
+            children: <Widget>[
+              DepartureItem(departure),
+              Divider(height: 1.0),
+            ],
+          );
+        });
   }
 }
