@@ -37,7 +37,7 @@ class DeparturesClient extends DeparturesRepository {
     if (response.statusCode == 200) {
       return _parseResponse(response);
     } else if (response.statusCode == 400) {
-      throw Exception('Die Linie $line fährt an der Haltestelle ${stop.name} nicht!');
+      throw Exception('Die Linie $line existiert nicht!');
     } else {
       throw Exception('Failed to load departures');
     }
