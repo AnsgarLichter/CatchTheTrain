@@ -26,7 +26,7 @@ Middleware<AppState> _createLoadStops(StopsRepository repository) {
     repository.loadStops(action.name).then(
       (stops) {
         store.dispatch(
-          StopsLoadedAction(stops.toList()),
+          StopsLoadedAction(action.name, stops.toList()),
         );
       },
     ).catchError((error) => store.dispatch(StopsNotLoadedAction(error)));
@@ -40,7 +40,7 @@ Middleware<AppState> _createLoadFavouredStops(StopsRepository repository) {
     repository.loadFavouredStops().then(
       (stops) {
         store.dispatch(
-          FavouredStopsLoadedAction(stops.toList()),
+          FavouredStopsLoadedAction(stops != null ? stops.toList() : []),
         );
       },
     ).catchError((error) => store.dispatch(StopsNotLoadedAction(error)));
@@ -52,7 +52,6 @@ Middleware<AppState> _createLoadFavouredStops(StopsRepository repository) {
 Middleware<AppState> _createDeleteStops(StopsRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
     repository.delete(action.stop);
-    action.stop.isFavoured = false;
     next(action);
   };
 }
@@ -60,7 +59,6 @@ Middleware<AppState> _createDeleteStops(StopsRepository repository) {
 Middleware<AppState> _createInsertStops(StopsRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
     repository.insert(action.stop);
-    action.stop.isFavoured = true;
     next(action);
   };
 }

@@ -13,13 +13,14 @@ class LoadStopsAction {
 }
 
 class StopsLoadedAction {
+  final String searchTerm;
   final List<Stop> stops;
 
-  StopsLoadedAction(this.stops);
+  StopsLoadedAction(this.searchTerm, this.stops);
 
   @override
   String toString() {
-    return 'LoadStopsAction{stops: $stops}';
+    return 'LoadStopsAction{searchTerm: $searchTerm, stops: $stops}';
   }
 }
 
