@@ -1,16 +1,21 @@
 # Catch the Train
 
-A new Flutter application.
+This is my first fullter based app. The target was to create an app to retrieve the data of the KVV (Karlsruher Verkehrsverbund). 
+Now you should be able to track the live departures at one or more stations more comfortable.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Impressions
 
-A few resources to get you started if this is your first Flutter project:
+This section will be added shortly.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Google Play Store
+
+As soon as the first feature is finished the app will be released in the Google Play Store.
+
+
+## Features for the future
+
+* Retrieve live data for saved routes
+
+Feel free to mention some Ideas
