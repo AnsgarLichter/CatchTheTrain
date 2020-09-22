@@ -1,5 +1,5 @@
 // Load Stops Actions
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 class LoadStopsAction {
   final String name;

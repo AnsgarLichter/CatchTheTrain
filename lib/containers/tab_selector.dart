@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:myapp/actions/actions.dart';
-import 'package:myapp/models/app_state.dart';
-import 'package:myapp/models/app_tab.dart';
+import 'package:catchthetrain/actions/actions.dart';
+import 'package:catchthetrain/models/app_state.dart';
+import 'package:catchthetrain/models/app_tab.dart';
 import 'package:redux/redux.dart';
 
 class TabSelector extends StatelessWidget {
@@ -17,7 +17,6 @@ class TabSelector extends StatelessWidget {
       builder: (context, vm) {
         return BottomNavigationBar(
           key: Key('tabs'),
-          //TODO: create keys enum
           type: BottomNavigationBarType.fixed,
           backgroundColor: Theme.of(context).primaryColorLight,
           fixedColor: Theme.of(context).primaryColorDark,

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:myapp/middleware/database/database_helper.dart';
-import 'package:myapp/middleware/services/repositories.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/middleware/database/database_helper.dart';
+import 'package:catchthetrain/middleware/services/repositories.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -36,7 +36,7 @@ class StopsClient implements StopsRepository {
   }
 
   Future<List<Stop>> _loadStopsFromLiveAPI(String name) async {
-    String requestUrl = //TODO: service constants => byName / byStop / ...
+    String requestUrl =
         'https://live.kvv.de/webapp/stops/byname/:name?key=377d840e54b59adbe53608ba1aad70e8';
     requestUrl = requestUrl.replaceAll(':name', name);
     final http.Response response = await http.get(requestUrl);

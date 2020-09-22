@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:myapp/middleware/services/repositories.dart';
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/middleware/services/repositories.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 import 'package:http/http.dart' as http;
 

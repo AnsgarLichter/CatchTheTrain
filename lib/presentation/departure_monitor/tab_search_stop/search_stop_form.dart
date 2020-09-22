@@ -1,13 +1,18 @@
+import 'package:catchthetrain/localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchStopForm extends StatelessWidget {
   final Function(String) onSave;
 
+  String valueIsEmpty;
+
   SearchStopForm(this.onSave);
 
   @override
   Widget build(BuildContext context) {
+    valueIsEmpty = ReduxLocalizations.of(context).translate("input.station.name");
+
     return Form(
         autovalidate: true,
         onChanged: () {
@@ -17,11 +22,11 @@ class SearchStopForm extends StatelessWidget {
           margin:
               EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 30.0),
           child: TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: OutlineInputBorder(),
               icon: Icon(Icons.train),
-              hintText: 'Enter station name', //TODO: localization
-              labelText: 'Station name', //TODO: localization
+              hintText: ReduxLocalizations.of(context).translate("input.station.name"),
+              labelText: ReduxLocalizations.of(context).translate("station.name")
             ),
             validator: _validateForm,
             onSaved: onSave,
@@ -31,7 +36,7 @@ class SearchStopForm extends StatelessWidget {
 
   String _validateForm(String value) {
     return value.isEmpty
-        ? 'Please enter a station name'
-        : null; //TODO: localization
+        ? valueIsEmpty
+        : null;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/models/models.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/models/models.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 @immutable
 class AppState {

@@ -1,6 +1,6 @@
-import 'package:myapp/actions/actions.dart';
-import 'package:myapp/middleware/services/repositories.dart';
-import 'package:myapp/models/app_state.dart';
+import 'package:catchthetrain/actions/actions.dart';
+import 'package:catchthetrain/middleware/services/repositories.dart';
+import 'package:catchthetrain/models/app_state.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createStoreStopsMiddleware(

@@ -1,6 +1,6 @@
-import 'package:myapp/actions/actions.dart';
+import 'package:catchthetrain/actions/actions.dart';
 import 'package:redux/redux.dart';
-import 'package:myapp/models/models.dart';
+import 'package:catchthetrain/models/models.dart';
 
 final tabsReducer = combineReducers<AppTab>([
   TypedReducer<AppTab, UpdateTabAction>(_activeTabReducer),

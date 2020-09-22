@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/presentation/departure_monitor/tab_live_departure/departure_item.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/presentation/departure_monitor/tab_live_departure/departure_item.dart';
 
 class DeparturesList extends StatelessWidget {
   final List<Departure> departures;

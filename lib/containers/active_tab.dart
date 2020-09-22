@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:myapp/models/app_state.dart';
-import 'package:myapp/models/app_tab.dart';
+import 'package:catchthetrain/models/app_state.dart';
+import 'package:catchthetrain/models/app_tab.dart';
 import 'package:redux/redux.dart';
 
 class ActiveTab extends StatelessWidget {

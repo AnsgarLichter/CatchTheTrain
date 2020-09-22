@@ -1,4 +1,4 @@
-import 'package:myapp/models/models.dart';
+import 'package:catchthetrain/models/models.dart';
 
 
 AppTab activeTabSelector(AppState state) => state.activeTab;

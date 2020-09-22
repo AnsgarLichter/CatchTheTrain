@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/containers/app_loading.dart';
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/models/stop.dart';
-import 'package:myapp/presentation/departure_monitor/tab_overview_favoured_stops/favoured_stops_overview.dart';
-import 'package:myapp/presentation/departure_monitor/tab_search_stop/search_stop_form.dart';
-import 'package:myapp/presentation/departure_monitor/stops_list.dart';
-import 'package:myapp/presentation/loading_indicator.dart';
-import 'package:myapp/presentation/departure_monitor/tab_live_departure/live_departure_tab.dart';
+import 'package:catchthetrain/containers/app_loading.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/models/stop.dart';
+import 'package:catchthetrain/presentation/departure_monitor/tab_overview_favoured_stops/favoured_stops_overview.dart';
+import 'package:catchthetrain/presentation/departure_monitor/tab_search_stop/search_stop_form.dart';
+import 'package:catchthetrain/presentation/departure_monitor/stops_list.dart';
+import 'package:catchthetrain/presentation/loading_indicator.dart';
+import 'package:catchthetrain/presentation/departure_monitor/tab_live_departure/live_departure_tab.dart';
 
 class DepartureMonitorScreen extends StatelessWidget {
   final bool isLoading;

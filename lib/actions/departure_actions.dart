@@ -1,6 +1,6 @@
 //Load Departures Actions
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 class LoadDeparturesAction {
   final Stop stop;

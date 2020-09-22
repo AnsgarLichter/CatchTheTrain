@@ -1,5 +1,5 @@
 import 'package:redux/redux.dart';
-import 'package:myapp/actions/actions.dart';
+import 'package:catchthetrain/actions/actions.dart';
 
 final loadingReducer = combineReducers<bool>([
   TypedReducer<bool, StopsLoadedAction>(_setLoaded),

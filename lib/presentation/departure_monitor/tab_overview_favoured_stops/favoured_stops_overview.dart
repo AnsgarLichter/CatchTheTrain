@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/models/stop.dart';
-import 'package:myapp/presentation/departure_monitor/stops_list.dart';
+import 'package:catchthetrain/models/stop.dart';
+import 'package:catchthetrain/presentation/departure_monitor/stops_list.dart';
 
 class FavouredStopsOverview extends StatelessWidget {
   final List<Stop> favouredStops;

@@ -1,0 +1,15 @@
+{
+  "title": "Catch The Train",
+  "departures.noData": "No departures found",
+  "filter":"Filter lines",
+  "filter.apply": "Apply filter",
+  "filter.delete": "Reset filter",
+  "line": "Line",
+  "delete": "Reset",
+  "save": "Save",
+  "refresh.title": "Refreshing ...",
+  "refresh.message": "The departures are loading.",
+  "immediately": "Immediately",
+  "input.station.name": "Enter station name",
+  "station.name": "station name"
+}

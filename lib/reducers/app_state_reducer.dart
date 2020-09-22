@@ -1,11 +1,11 @@
-import 'package:myapp/models/app_state.dart';
-import 'package:myapp/reducers/departures_reducer.dart';
-import 'package:myapp/reducers/error_reducer.dart';
-import 'package:myapp/reducers/loading_reducer.dart';
-import 'package:myapp/reducers/search_term_reducer.dart';
-import 'package:myapp/reducers/stops_reducer.dart';
-import 'package:myapp/reducers/tabs_reducer.dart';
-import 'package:myapp/reducers/visibility_reducer.dart';
+import 'package:catchthetrain/models/app_state.dart';
+import 'package:catchthetrain/reducers/departures_reducer.dart';
+import 'package:catchthetrain/reducers/error_reducer.dart';
+import 'package:catchthetrain/reducers/loading_reducer.dart';
+import 'package:catchthetrain/reducers/search_term_reducer.dart';
+import 'package:catchthetrain/reducers/stops_reducer.dart';
+import 'package:catchthetrain/reducers/tabs_reducer.dart';
+import 'package:catchthetrain/reducers/visibility_reducer.dart';
 
 AppState appReducer(AppState state, action) {
   return AppState(

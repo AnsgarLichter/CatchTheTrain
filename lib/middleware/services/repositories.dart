@@ -1,5 +1,5 @@
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 abstract class StopsRepository {
   Future<List<Stop>> loadStops(String name);

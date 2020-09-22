@@ -1,6 +1,6 @@
 //TabActions
-import 'package:myapp/models/app_tab.dart';
-import 'package:myapp/models/models.dart';
+import 'package:catchthetrain/models/app_tab.dart';
+import 'package:catchthetrain/models/models.dart';
 
 class UpdateTabAction {
   final AppTab newTab;
@@ -13,7 +13,7 @@ class UpdateTabAction {
   }
 }
 
-//TODO: Remove
+
 class UpdateFilterAction {
   final VisibilityFilter newFilter;
 

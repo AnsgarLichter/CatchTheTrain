@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:myapp/models/app_state.dart';
-import 'package:myapp/selectors/selectors.dart';
+import 'package:catchthetrain/models/app_state.dart';
+import 'package:catchthetrain/selectors/selectors.dart';
 import 'package:redux/redux.dart';
 
 class AppLoading extends StatelessWidget {

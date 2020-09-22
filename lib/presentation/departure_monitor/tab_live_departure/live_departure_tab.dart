@@ -1,11 +1,12 @@
+import 'package:catchthetrain/localization.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:myapp/models/departure.dart';
-import 'package:myapp/models/stop.dart';
-import 'package:myapp/presentation/loading_indicator.dart';
-import 'package:myapp/presentation/departure_monitor/tab_live_departure/departures_list.dart';
+import 'package:catchthetrain/models/departure.dart';
+import 'package:catchthetrain/models/stop.dart';
+import 'package:catchthetrain/presentation/loading_indicator.dart';
+import 'package:catchthetrain/presentation/departure_monitor/tab_live_departure/departures_list.dart';
 
 class LiveDepartureTab extends StatefulWidget {
   final bool isLoading;
@@ -118,7 +119,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
     return _buildMessage(
         Icons.not_interested,
         Theme.of(context).primaryColorDark,
-        'Es wurden keine Abfahrten gefunden');
+        ReduxLocalizations.of(context).translate('departures.noData'));
   }
 
   Widget _buildMessage(IconData icon, Color color, String message) {
@@ -190,6 +191,7 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
   }
 
   void _onFilterButtonPressed(BuildContext context) {
+
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
@@ -203,11 +205,11 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       icon: Icon(FontAwesome.filter),
-                      hintText: 'Filtern der Linien', //TODO: localization
-                      labelText: 'Linie', //TODO: localization
+                      hintText: ReduxLocalizations.of(context).translate('departures.noData'),
+                      labelText: ReduxLocalizations.of(context).translate('departures.noData'),
                     ),
                     maxLength: 3,
                     validator: _onValidateForm,
@@ -225,9 +227,9 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                         FloatingActionButton.extended(
                           label: Text(line.isNotEmpty
                               ? valueModified
-                                  ? 'Filter anwenden'
-                                  : 'Filter löschen'
-                              : 'Filter anwenden'), //TODO: Internationalization
+                                  ? ReduxLocalizations.of(context).translate('filter.apply')
+                                  : ReduxLocalizations.of(context).translate('filter.delete')
+                              : ReduxLocalizations.of(context).translate('filter.apply')),
                           icon: Icon(FontAwesome.filter),
                           backgroundColor: line.isNotEmpty
                               ? valueModified
@@ -238,8 +240,8 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
                         ),
                         FloatingActionButton.extended(
                           label: Text(widget.stop.filter.isNotEmpty
-                              ? 'Löschen'
-                              : 'Speichern'), //TODO: Internationalization
+                              ? ReduxLocalizations.of(context).translate('delete')
+                              : ReduxLocalizations.of(context).translate('save')),
                           icon: Icon(widget.stop.filter.isNotEmpty
                               ? Icons.delete
                               : Icons.save),
@@ -262,8 +264,8 @@ class LiveDepartureTabState extends State<LiveDepartureTab> {
     widget.onLoadDepartures(widget.stop, line);
 
     Flushbar(
-      title: 'Aktualisieren ...',
-      message: 'Die Abfahrten werden geladen ...',
+      title: ReduxLocalizations.of(context).translate('refresh.title'),
+      message: ReduxLocalizations.of(context).translate('refresh.message'),
       icon: Icon(
         Icons.update,
         size: 28,

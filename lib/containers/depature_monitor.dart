@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:myapp/models/departure.dart';
+import 'package:catchthetrain/models/departure.dart';
 import 'package:redux/redux.dart';
 
-import 'package:myapp/models/app_state.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/models/app_state.dart';
+import 'package:catchthetrain/models/stop.dart';
 
-import 'package:myapp/actions/actions.dart';
+import 'package:catchthetrain/actions/actions.dart';
 
-import 'package:myapp/presentation/departure_monitor/departure_monitor_screen.dart';
+import 'package:catchthetrain/presentation/departure_monitor/departure_monitor_screen.dart';
 
 class DepartureMonitor extends StatelessWidget {
   DepartureMonitor({Key key}) : super(key: key);

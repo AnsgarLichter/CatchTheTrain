@@ -1,4 +1,4 @@
-import 'package:myapp/middleware/database/database_helper.dart';
+import 'package:catchthetrain/middleware/database/database_helper.dart';
 
 class Stop {
   String id;

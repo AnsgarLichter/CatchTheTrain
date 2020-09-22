@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
-import 'package:myapp/actions/actions.dart';
-import 'package:myapp/models/models.dart';
+import 'package:catchthetrain/actions/actions.dart';
+import 'package:catchthetrain/models/models.dart';
 
 final visibilityReducer = combineReducers<VisibilityFilter>([
   TypedReducer<VisibilityFilter, UpdateFilterAction>(_activeFilterReducer),

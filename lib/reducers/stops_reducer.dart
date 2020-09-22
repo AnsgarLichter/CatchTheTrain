@@ -1,5 +1,5 @@
-import 'package:myapp/actions/actions.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/actions/actions.dart';
+import 'package:catchthetrain/models/stop.dart';
 import 'package:redux/redux.dart';
 
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/containers/active_tab.dart';
-import 'package:myapp/containers/tab_selector.dart';
-import 'package:myapp/localization.dart';
-import 'package:myapp/models/app_tab.dart';
-import 'package:myapp/containers/depature_monitor.dart';
-import 'package:myapp/presentation/route_planning/route_planning_widget.dart';
-import 'package:myapp/presentation/settings_widget.dart';
+import 'package:catchthetrain/containers/active_tab.dart';
+import 'package:catchthetrain/containers/tab_selector.dart';
+import 'package:catchthetrain/localization.dart';
+import 'package:catchthetrain/models/app_tab.dart';
+import 'package:catchthetrain/containers/depature_monitor.dart';
+import 'package:catchthetrain/presentation/route_planning/route_planning_widget.dart';
+import 'package:catchthetrain/presentation/settings_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function() onInit;
@@ -29,7 +29,7 @@ class HomeScreenState extends State<HomeScreen> {
     return ActiveTab(builder: (BuildContext context, AppTab activeTab) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(ReduxLocalizations.of(context).appTitle),
+          title: Text(ReduxLocalizations.of(context).translate('title')),
           backgroundColor: Theme.of(context).primaryColorDark,
         ),
         body: activeTab == AppTab.departureMonitor ? DepartureMonitor() : activeTab == AppTab.routePlanning ? RoutePlanning() : Settings(),

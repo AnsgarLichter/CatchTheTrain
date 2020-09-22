@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/models/stop.dart';
+import 'package:catchthetrain/models/stop.dart';
 
 class StopItem extends StatelessWidget {
   final Stop stop;

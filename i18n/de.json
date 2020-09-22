@@ -1,0 +1,13 @@
+{
+  "title": "Catch The Train",
+  "departures.noData": "Es wurden keine Abfahren gefunden.",
+  "filter": "Filtern der Linien",
+  "line": "Linie",
+  "delete": "Löschen",
+  "save": "Speichern",
+  "refresh.title": "Aktualisieren ...",
+  "refresh.message": "Die Abfahrten werden geladen!",
+  "immediately": "Sofort",
+  "input.station.name": "Haltestelle eingeben",
+  "station.name": "Haltestelle"
+}

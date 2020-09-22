@@ -1,6 +1,7 @@
+import 'package:catchthetrain/localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/models/departure.dart';
+import 'package:catchthetrain/models/departure.dart';
 
 class DepartureItem extends StatelessWidget {
   final Departure departure;
@@ -31,6 +32,6 @@ class DepartureItem extends StatelessWidget {
                                 .white)), //Icon(Icons.directions_transit),
                   ),
                 ))),
-        trailing: Text(time == '0' ? 'sofort' : time));
+        trailing: Text(time == '0' ? ReduxLocalizations.of(context).translate("immediately") : time));
   }
 }
