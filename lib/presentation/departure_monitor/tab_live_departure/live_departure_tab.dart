@@ -5,7 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:myapp/models/departure.dart';
 import 'package:myapp/models/stop.dart';
 import 'package:myapp/presentation/loading_indicator.dart';
-import 'package:myapp/presentation/tabsTest/departures_list.dart';
+import 'package:myapp/presentation/departure_monitor/tab_live_departure/departures_list.dart';
 
 class LiveDepartureTab extends StatefulWidget {
   final bool isLoading;

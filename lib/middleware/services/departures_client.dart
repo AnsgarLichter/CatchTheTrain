@@ -11,18 +11,19 @@ class DeparturesClient extends DeparturesRepository {
 
   @override
   Future<List<Departure>> loadDepartures(Stop stop) async {
-    String requestUrl = //TODO: service constants => byName / byStop / ...
-        'https://live.kvv.de/webapp/departures/bystop/:stop_id?maxInfos=10&key=:api_key'; //TODO: API_KEY as constant
+    String requestUrl =
+        'https://live.kvv.de/webapp/departures/bystop/:stop_id?maxInfos=10&key=:api_key';
     requestUrl = requestUrl.replaceAll(':api_key', API_KEY);
     requestUrl = requestUrl.replaceAll(':stop_id', stop.id);
 
     final http.Response response = await http.get(requestUrl);
     if (response.statusCode == 200) {
       return _parseResponse(response);
-    } else if (response.statusCode == 400){
-      throw Exception('An dieser Haltestelle sind keine Echtzeitinformationen verfügbar!');
+    } else if (response.statusCode == 400) {
+      throw Exception(
+          'This stop does not support the visualization of realtime informations!');
     } else {
-      throw Exception('Failed to load departures');
+      throw Exception('Failed to load departures!');
     }
   }
 
@@ -37,9 +38,9 @@ class DeparturesClient extends DeparturesRepository {
     if (response.statusCode == 200) {
       return _parseResponse(response);
     } else if (response.statusCode == 400) {
-      throw Exception('Die Linie $line existiert nicht!');
+      throw Exception('The line $line does not exist!');
     } else {
-      throw Exception('Failed to load departures');
+      throw Exception('Failed to load departures!');
     }
   }
 
