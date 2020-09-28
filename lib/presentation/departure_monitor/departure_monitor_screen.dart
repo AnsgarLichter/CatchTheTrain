@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:catchthetrain/containers/app_loading.dart';
 import 'package:catchthetrain/models/departure.dart';
 import 'package:catchthetrain/models/stop.dart';
-import 'package:catchthetrain/presentation/departure_monitor/tab_overview_favoured_stops/favoured_stops_overview.dart';
 import 'package:catchthetrain/presentation/departure_monitor/tab_search_stop/search_stop_form.dart';
-import 'package:catchthetrain/presentation/departure_monitor/stops_list.dart';
-import 'package:catchthetrain/presentation/loading_indicator.dart';
 import 'package:catchthetrain/presentation/departure_monitor/tab_live_departure/live_departure_tab.dart';
 
 class DepartureMonitorScreen extends StatelessWidget {
@@ -47,12 +44,9 @@ class DepartureMonitorScreen extends StatelessWidget {
     var tabs = <Widget>[];
 
     tabs.add(_buildSearchStopScreen());
-    if (favouredStops.length > 0)
-      tabs.add(FavouredStopsOverview(
-          this.favouredStops, this.onOppose, this.onFavour));
     tabs.addAll(_buildLiveDepartureScreen());
 
-    return DefaultTabController(
+    var _oTabController = DefaultTabController(
       length: tabs.length,
       initialIndex: favouredStops.length > 0 ? 1 : 0,
       child: Scaffold(
@@ -60,20 +54,19 @@ class DepartureMonitorScreen extends StatelessWidget {
         children: tabs,
       )),
     );
+
+    return _oTabController;
   }
 
   Widget _buildSearchStopScreen() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SearchStopForm(onSave),
-          isLoading ? LoadingIndicator :
-          stops.length > 0
-              ? StopsList(stops, onOppose, onFavour)
-              : Container(width: 0, height: 0),
-        ],
-      ),
+    return StopLiveSearch(
+      onSave: onSave,
+      isLoading: isLoading,
+      stops: stops,
+      favouredStops: favouredStops,
+      onFavour: onFavour,
+      onOppose: onOppose,
+      onStopTapped: onStopTapped,
     );
   }
 
@@ -91,6 +84,27 @@ class DepartureMonitorScreen extends StatelessWidget {
           onDeleteFilter: onDeleteFilter));
     });
 
+    stops.forEach((stop) {
+      tabs.add(LiveDepartureTab(
+          isLoading: isLoading,
+          stop: stop,
+          departures: departures,
+          errorMessage: errorMessage,
+          onLoadDepartures: onLoadDepartures,
+          onSaveFilter: onSaveFilter,
+          onDeleteFilter: onDeleteFilter));
+    });
+
     return tabs;
+  }
+
+  void onStopTapped(BuildContext context, Stop stop) {
+    if (favouredStops.contains(Stop)) {
+      DefaultTabController.of(context)
+          .animateTo(favouredStops.indexOf(stop) + 1);
+    } else {
+      DefaultTabController.of(context)
+          .animateTo(favouredStops.length + stops.indexOf(stop) + 1);
+    }
   }
 }
