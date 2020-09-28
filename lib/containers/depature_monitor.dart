@@ -20,7 +20,7 @@ class DepartureMonitor extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
-        return DepartureMonitorScreen(
+        return DepartureMonitorTab(
           isLoading: vm.isLoading,
           stops: vm.stops,
           favouredStops: vm.favouredStops,

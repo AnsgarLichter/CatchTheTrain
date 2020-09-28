@@ -38,6 +38,7 @@ class _StopLiveSearchState extends State<StopLiveSearch> {
   Widget build(BuildContext context) {
     _errorEmptySearchTerm =
         ReduxLocalizations.of(context).translate("input.station.name");
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

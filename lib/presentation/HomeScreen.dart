@@ -26,15 +26,19 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // return ActiveTab(builder: (BuildContext context, AppTab activeTab) {
+    //   return Scaffold(
+    //     appBar: AppBar(
+    //       title: Text(ReduxLocalizations.of(context).translate('title')),
+    //       backgroundColor: Theme.of(context).primaryColorDark,
+    //     ),
+    //     body: activeTab == AppTab.departureMonitor ? DepartureMonitor() : activeTab == AppTab.routePlanning ? RoutePlanning() : Settings(),
+    //     bottomNavigationBar: TabSelector(),
+    //   );
+    // });
+
     return ActiveTab(builder: (BuildContext context, AppTab activeTab) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(ReduxLocalizations.of(context).translate('title')),
-          backgroundColor: Theme.of(context).primaryColorDark,
-        ),
-        body: activeTab == AppTab.departureMonitor ? DepartureMonitor() : activeTab == AppTab.routePlanning ? RoutePlanning() : Settings(),
-        bottomNavigationBar: TabSelector(),
-      );
+      return activeTab == AppTab.departureMonitor ? DepartureMonitor() : activeTab == AppTab.routePlanning ? RoutePlanning() : Settings();
     });
   }
 }
