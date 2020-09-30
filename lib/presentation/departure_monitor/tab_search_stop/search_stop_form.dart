@@ -48,8 +48,10 @@ class _StopLiveSearchState extends State<StopLiveSearch> {
               ? LoadingIndicator
               : !_showStops || widget.stops.length == 0
                   ? StopsList(
-                      widget.favouredStops, widget.onOppose, widget.onFavour, onStopTapped: widget.onStopTapped)
-                  : StopsList(widget.stops, widget.onOppose, widget.onFavour, onStopTapped: widget.onStopTapped),
+                      widget.favouredStops, widget.onOppose, widget.onFavour,
+                      onStopTapped: widget.onStopTapped)
+                  : StopsList(widget.stops, widget.onOppose, widget.onFavour,
+                      onStopTapped: widget.onStopTapped),
         ],
       ),
     );
@@ -63,7 +65,7 @@ class _StopLiveSearchState extends State<StopLiveSearch> {
       },
       child: Container(
         margin:
-            EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 30.0),
+            EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0, bottom: 30.0),
         child: TextFormField(
           decoration: InputDecoration(
               border: OutlineInputBorder(),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:catchthetrain/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:catchthetrain/containers/app_loading.dart';
@@ -6,6 +8,8 @@ import 'package:catchthetrain/models/stop.dart';
 import 'package:catchthetrain/presentation/departure_monitor/tab_search_stop/search_stop_form.dart';
 import 'package:catchthetrain/presentation/departure_monitor/tab_live_departure/live_departure_tab.dart';
 import 'dart:math' as math;
+
+import 'package:flutter_icons/flutter_icons.dart';
 
 class DepartureMonitorTab extends StatefulWidget {
   final bool isLoading;
@@ -43,10 +47,13 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
     with TickerProviderStateMixin {
   TabController tabController;
   List<Widget> tabs;
+  bool swipe = true;
 
   @override
   void initState() {
     super.initState();
+    //TODO: refactor tabs & uiTabs
+    //TODO: reset branches in git and switch to correct branch
     if (tabs == null) {
       tabs = <Widget>[];
       tabs.add(_buildSearchStopScreen());
@@ -59,6 +66,24 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
   void dispose() {
     tabController.dispose();
     super.dispose();
+  }
+
+  void onSwipe(details) {
+    int swipeDirection = details.velocity.pixelsPerSecond.dx.toInt();
+    int maxSwipeIndex = widget.favouredStops.length;
+    int actIndex = tabController.index;
+    int newIndex;
+
+    if(swipeDirection > 0 && actIndex == 0 || swipeDirection < 0 && actIndex == tabController.length -1)
+        return;
+    if(swipe) {
+      newIndex = actIndex + (swipeDirection > 0 ? -1 : maxSwipeIndex == actIndex ? 0 : 1);
+    } else {
+      newIndex = swipeDirection > 0 ? 0 : actIndex;
+      swipe = newIndex == 0;
+    }
+
+    tabController.animateTo(newIndex);
   }
 
   void _updateTabController() {
@@ -77,10 +102,6 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
     );
   }
 
-  void _navigateToLast() {
-    tabController.animateTo(tabs.length - 1);
-  }
-
 /*  @override
   Widget build(BuildContext context) {
     return AppLoading(builder: (context, loading) {
@@ -95,19 +116,18 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
     uiTabs.addAll(_buildLiveDepartureScreen());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(ReduxLocalizations.of(context).translate('title')),
-        backgroundColor: Theme.of(context).primaryColorDark,
-      ),
-      body: TabBarView(
-        controller: tabController,
-        children: uiTabs,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _navigateToLast,
-        child: Icon(Icons.add),
-      ),
-    );
+        appBar: AppBar(
+          title: Text(ReduxLocalizations.of(context).translate('title')),
+          backgroundColor: Theme.of(context).primaryColorDark,
+        ),
+        body: GestureDetector(
+          onHorizontalDragEnd: onSwipe,
+          child: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: tabController,
+            children: uiTabs,
+          ),
+        ));
   }
 
   Widget _buildSearchStopScreen() {
@@ -153,11 +173,12 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
   }
 
   void onStopTapped(BuildContext context, Stop stop) {
-    if (widget.favouredStops.contains(Stop)) {
-      tabController.animateTo(widget.favouredStops.indexOf(stop));
+    swipe = stop.isFavoured;
+    if (widget.favouredStops.contains(stop)) {
+      tabController.animateTo(1 + widget.favouredStops.indexOf(stop));
     } else {
       tabController.animateTo(
-          widget.favouredStops.length + widget.stops.indexOf(stop));
+          1 + widget.favouredStops.length + widget.stops.indexOf(stop));
     }
   }
 
@@ -175,7 +196,6 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
         tabs.addAll(_buildLiveDepartureScreen());
         _updateTabController();
       });
-      setState(() {});
     }
   }
 }

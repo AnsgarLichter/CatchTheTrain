@@ -17,6 +17,7 @@ class DeparturesList extends StatelessWidget {
 
   Widget _buildStopsList() {
     return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
         itemCount: departures.length,
         itemBuilder: (context, index) {
           final departure = departures[index];
