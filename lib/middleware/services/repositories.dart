@@ -11,6 +11,8 @@ abstract class StopsRepository {
   void insert(Stop stop);
 
   Future<int> update(Stop stop);
+
+  Future<int> updateSortPosition(Stop stop);
 }
 
 

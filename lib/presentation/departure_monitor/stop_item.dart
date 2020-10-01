@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:catchthetrain/models/stop.dart';
 
-class StopItem extends StatelessWidget {
+class StopItem {
   final Stop stop;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
@@ -10,9 +10,10 @@ class StopItem extends StatelessWidget {
 
   StopItem(this.stop, this.onOppose, this.onFavour, {this.onStopTapped});
 
-  @override
-  Widget build(BuildContext context) {
+
+  Widget get(BuildContext context) {
     return ListTile(
+      key: ValueKey(stop),
       title: Text(stop.name),
       leading: Icon(Icons.directions_transit, color: Theme
           .of(context)

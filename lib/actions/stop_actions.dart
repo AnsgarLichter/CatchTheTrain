@@ -69,3 +69,14 @@ class FavourStopAction {
     return 'FavourStopAction{stop: $stop}';
   }
 }
+
+class SortStopAction {
+  final Stop stop;
+
+  SortStopAction(this.stop);
+
+  @override
+  String toString() {
+    return 'SortStopAction{stop: $stop';
+  }
+}

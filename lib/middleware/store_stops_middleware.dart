@@ -10,6 +10,7 @@ List<Middleware<AppState>> createStoreStopsMiddleware(
   final deleteStop = _createDeleteStops(stopsRepository);
   final insertStop = _createInsertStops(stopsRepository);
   final updateStop = _createUpdateFilter(stopsRepository);
+  final updateSortPosition = _createUpdateSortPosition(stopsRepository);
 
   return [
     TypedMiddleware<AppState, LoadStopsAction>(loadStops),
@@ -18,6 +19,7 @@ List<Middleware<AppState>> createStoreStopsMiddleware(
     TypedMiddleware<AppState, FavourStopAction>(insertStop),
     TypedMiddleware<AppState, SaveDeparturesFilterAction>(updateStop),
     TypedMiddleware<AppState, DeleteDeparturesFilterAction>(updateStop),
+    TypedMiddleware<AppState, SortStopAction>(updateSortPosition),
   ];
 }
 
@@ -67,7 +69,17 @@ Middleware<AppState> _createUpdateFilter(StopsRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
     repository.update(action.stop).then(
         (id) {
-          //TODO: check if working --> I think not
+          store.dispatch(LoadFavouredStopsAction());
+        }
+    );
+    next(action);
+  };
+}
+
+Middleware<AppState> _createUpdateSortPosition(StopsRepository repository) {
+  return (Store<AppState> store, action, NextDispatcher next) {
+    repository.updateSortPosition(action.stop).then(
+            (id) {
           store.dispatch(LoadFavouredStopsAction());
         }
     );

@@ -35,6 +35,11 @@ class StopsClient implements StopsRepository {
     return id;
   }
 
+  Future<int> updateSortPosition(Stop stop) async{
+    int id = await helper.updateSortPosition(stop);
+    return id;
+  }
+
   Future<List<Stop>> _loadStopsFromLiveAPI(String name) async {
     String requestUrl =
         'https://live.kvv.de/webapp/stops/byname/:name?key=377d840e54b59adbe53608ba1aad70e8';

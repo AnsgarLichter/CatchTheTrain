@@ -12,6 +12,7 @@ class StopLiveSearch extends StatefulWidget {
   final List<Stop> favouredStops;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
+  final Function(Stop) onSort;
   final Function(BuildContext, Stop) onStopTapped;
 
   const StopLiveSearch({
@@ -22,6 +23,7 @@ class StopLiveSearch extends StatefulWidget {
     @required this.favouredStops,
     @required this.onOppose,
     @required this.onFavour,
+    @required this.onSort,
     @required this.onStopTapped,
   }) : super(key: key);
 
@@ -47,11 +49,11 @@ class _StopLiveSearchState extends State<StopLiveSearch> {
           widget.isLoading
               ? LoadingIndicator
               : !_showStops || widget.stops.length == 0
-                  ? StopsList(
-                      widget.favouredStops, widget.onOppose, widget.onFavour,
-                      onStopTapped: widget.onStopTapped)
-                  : StopsList(widget.stops, widget.onOppose, widget.onFavour,
-                      onStopTapped: widget.onStopTapped),
+              ? StopsList(
+              widget.favouredStops, widget.onOppose, widget.onFavour, widget.onSort, true,
+              onStopTapped: widget.onStopTapped)
+              : StopsList(widget.stops, widget.onOppose, widget.onFavour, widget.onSort, false,
+              onStopTapped: widget.onStopTapped),
         ],
       ),
     );
@@ -65,7 +67,7 @@ class _StopLiveSearchState extends State<StopLiveSearch> {
       },
       child: Container(
         margin:
-            EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0, bottom: 30.0),
+        EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0, bottom: 30.0),
         child: TextFormField(
           decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -73,7 +75,7 @@ class _StopLiveSearchState extends State<StopLiveSearch> {
               hintText: ReduxLocalizations.of(context)
                   .translate("input.station.name"),
               labelText:
-                  ReduxLocalizations.of(context).translate("station.name")),
+              ReduxLocalizations.of(context).translate("station.name")),
           validator: _validateForm,
           onSaved: widget.onSave,
         ),

@@ -1,4 +1,5 @@
 import 'package:catchthetrain/middleware/database/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Stop {
   String id;
@@ -7,8 +8,9 @@ class Stop {
   double lat;
   double lon;
   bool isFavoured;
+  int sortPosition;
 
-  Stop({this.id, this.name, this. filter, this.lat, this.lon, this.isFavoured});
+  Stop({this.id, this.name, this. filter, this.lat, this.lon, this.isFavoured, this.sortPosition});
 
   factory Stop.fromJson(Map<String, dynamic> json) {
     return Stop(
@@ -28,6 +30,7 @@ class Stop {
     lat = map[DatabaseHelper.columnLat];
     lon = map[DatabaseHelper.columnLon];
     isFavoured = true;
+    sortPosition = map[DatabaseHelper.columnSortPosition];
 
     if(filter == null) filter = '';
   }
@@ -38,7 +41,8 @@ class Stop {
       DatabaseHelper.columnFilter: filter,
       DatabaseHelper.columnLat: lat,
       DatabaseHelper.columnLon: lon,
-      DatabaseHelper.columnId: id
+      DatabaseHelper.columnId: id,
+      DatabaseHelper.columnSortPosition: sortPosition,
     };
 
     if (id != null) {

@@ -19,6 +19,7 @@ class DepartureMonitorTab extends StatefulWidget {
   final String errorMessage;
   final Function(Stop) onOppose;
   final Function(Stop) onFavour;
+  final Function(Stop) onSort;
   final Function(String) onSave;
   final Function(Stop, String) onLoadDepartures;
   final Function(Stop) onSaveFilter;
@@ -34,6 +35,7 @@ class DepartureMonitorTab extends StatefulWidget {
     @required this.onOppose,
     @required this.onFavour,
     @required this.onSave,
+    @required this.onSort,
     @required this.onLoadDepartures,
     @required this.onSaveFilter,
     @required this.onDeleteFilter,
@@ -138,6 +140,7 @@ class _DepartureMonitorTabState extends State<DepartureMonitorTab>
       favouredStops: widget.favouredStops,
       onFavour: widget.onFavour,
       onOppose: widget.onOppose,
+      onSort: widget.onSort,
       onStopTapped: onStopTapped,
     );
   }
